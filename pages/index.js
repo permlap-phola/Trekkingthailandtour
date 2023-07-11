@@ -3,7 +3,7 @@ import Image from "next/image";
 import { Parallax, ParallaxLayer } from "@react-spring/parallax";
 export default function Home() {
   return (
-    <Parallax pages={2}>
+    <Parallax pages={3} style={{ top: "0", left: "0" }}>
       <Navbar />
       <ParallaxLayer
         style={{
@@ -17,6 +17,7 @@ export default function Home() {
       <ParallaxLayer
         style={{
           backgroundColor: "#F2E3DB",
+          height: "100%",
         }}
         offset={0.7}
         speed={0.8}
@@ -146,6 +147,10 @@ export default function Home() {
           </div>
         </div>
       </ParallaxLayer>
+      <ParallaxLayer
+        style={{ backgroundColor: "#F2E3DB" }}
+        offset={2}
+      ></ParallaxLayer>
     </Parallax>
   );
 }
