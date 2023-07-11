@@ -19,11 +19,11 @@ export default function Home() {
           backgroundColor: "#F2E3DB",
           height: "100%",
         }}
-        offset={0.7}
+        offset={0.6}
         speed={0.8}
       >
         <div>
-          <p className="w-full h-ful  flex items-start justify-center">
+          <p className="w-full h-ful   flex items-start justify-center">
             <section className=" w-full p-5 flex flex-col">
               <span className="font-Poppins w-11/12 font-bold text-3xl text-second-color">
                 Love and Passion for Nature
@@ -117,7 +117,7 @@ export default function Home() {
       </ParallaxLayer>
       <ParallaxLayer
         style={{ backgroundColor: "#41644A" }}
-        offset={1}
+        offset={1.2}
         speed={0.8}
       >
         <div className="w-full h-full flex justify-center items-center flex-col">
@@ -130,7 +130,7 @@ export default function Home() {
           </div>
         </div>
       </ParallaxLayer>
-      <ParallaxLayer offset={1.1} speed={0.5}>
+      <ParallaxLayer offset={1.3} speed={0.5}>
         <div className="w-full h-full flex justify-center items-center gap-2 flex-col">
           <p className="w-10/12 break-words bg-second-color text-white font-light leading-tight">
             open your unseen world, and be a part of this fun while conserving
