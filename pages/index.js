@@ -15,12 +15,14 @@ export default function Home() {
         speed={0.25}
       ></ParallaxLayer>
       <ParallaxLayer
-        style={{ backgroundColor: "#F2E3DB", height: "100%" }}
+        style={{
+          backgroundColor: "#F2E3DB",
+        }}
         offset={0.7}
         speed={0.8}
       >
         <div>
-          <p className="w-full h-full flex items-start justify-center">
+          <p className="w-full h-ful  flex items-start justify-center">
             <section className=" w-full p-5 flex flex-col">
               <span className="font-Poppins w-11/12 font-bold text-3xl text-second-color">
                 Love and Passion for Nature
@@ -118,7 +120,7 @@ export default function Home() {
         speed={0.8}
       >
         <div className="w-full h-full flex justify-center items-center flex-col">
-          <div className="w-10/12 text-white text-3xl font-bold mb-24 font-Poppins">
+          <div className="w-10/12 text-white text-3xl font-bold mb-28 font-Poppins">
             <span> Let&apos;s explore the</span>
             <span> </span>
             <span className="text-supper-main-color">new</span>
