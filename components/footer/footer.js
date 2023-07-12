@@ -28,8 +28,8 @@ function Footer() {
             contact us
           </p>
           <ul className="text-white text-xs">
-            <li>(+66) 0897190750 ไกด์เบียร์ ( Guide BEER )</li>
-            <li>(+66) 0819978805 ไกด์เล็ก ( Guide LEK )</li>
+            <li>(+66) 0897190750 Guide BEER </li>
+            <li>(+66) 0819978805 Guide LEK</li>
             <li>Email : To.Be.Journey@gmail.com</li>
             <li>Trekking.thailandtour@gmail.com</li>
             <li>ID LINE : Guide.beer</li>

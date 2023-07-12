@@ -1,18 +1,41 @@
 import Image from "next/image";
-import React from "react";
+import React, { useState } from "react";
 import Facebook from "../contact-logo/facebook";
 import Line from "../contact-logo/line";
 import Phone from "../contact-logo/phone";
 
 function Navbar() {
+  const [activeMenu, setActivemenu] = useState(false);
+
+  const handleTriggerMenu = () => {
+    setActivemenu(() => !activeMenu);
+    if (activeMenu === true) {
+      document.body.style.overflow = "hidden";
+    } else if (activeMenu === false) {
+      document.body.style.overflow = "auto";
+    }
+  };
   return (
-    <nav className=" top-5 w-full fixed z-40 ">
-      <ul className="pl-0 list-none flex justify-between font-Poppins">
+    <nav className=" top-5 w-full fixed z-10   ">
+      {/* Phone navbar */}
+      <ul className="pl-0 md:hidden list-none flex justify-between font-Poppins z-20 ">
         <li
-          className="ml-3 w-max pr-3  gap-2 h-10 bg-main-color
-         rounded-full overflow-hidden drop-shadow-md flex justify-between items-center text-third-color"
+          role="button"
+          onClick={handleTriggerMenu}
+          className={`ml-3 w-56 pr-3  gap-2 h-10 ring-2  ${
+            activeMenu
+              ? "bg-supper-main-color ring-white flex-row-reverse z-20"
+              : "bg-main-color ring-main-color flex-row "
+          }
+         rounded-full overflow-hidden drop-shadow-md relative flex justify-between items-center text-third-color`}
         >
-          <div className="w-10 h-10 rounded-full overflow-hidden relative ring-2 ring-main-color">
+          <div
+            className={`${
+              activeMenu
+                ? "translate-x-3 ring-white "
+                : "translate-x-0 ring-main-color "
+            } transition duration-150 w-10 h-10 rounded-full overflow-hidden relative  ring-2 `}
+          >
             <Image
               src="/logo/logo.jpg"
               fill
@@ -20,13 +43,90 @@ function Navbar() {
               className="object-cover"
             />
           </div>
-          <span className="text-xs font-semibold">TREKKING THAILAND TOUR</span>
+          {activeMenu ? (
+            <span className="text-xs ml-10 font-semibold">CLOSE MENU</span>
+          ) : (
+            <span className="text-xs font-semibold">
+              TREKKING THAILAND TOUR
+            </span>
+          )}
         </li>
         <li className="mr-2 flex justify-center items-center gap-2">
           <Facebook />
           <Line />
           <Phone />
         </li>
+      </ul>
+      <div
+        className={`bg-supper-main-color md:hidden gap-10 flex justify-center flex-col items-center w-full h-screen transition duration-150 fixed top-0 ${
+          activeMenu ? "translate-y-0" : "-translate-y-[60rem]"
+        } `}
+      >
+        <button
+          className=" bg-white px-10 py-2 active:ring-main-color active:ring-2
+         font-medium text-main-color rounded-md drop-shadow-md"
+        >
+          Tour
+        </button>
+        <button
+          className=" bg-white px-10 py-2 active:ring-main-color active:ring-2
+         font-medium text-main-color rounded-md drop-shadow-md"
+        >
+          About us
+        </button>
+        <button
+          className=" bg-white px-10 py-2 active:ring-main-color active:ring-2
+         font-medium text-main-color rounded-md drop-shadow-md"
+        >
+          Blog
+        </button>
+      </div>
+
+      {/* Desktop view */}
+      <ul className="hidden md:flex justify-center gap-10 pl-0 list-none ">
+        <li
+          role="button"
+          className={`ml-3 w-56 pr-3  gap-2 h-10 ring-2 bg-main-color ring-main-color flex-row
+         rounded-full overflow-hidden drop-shadow-md relative flex justify-between items-center text-third-color`}
+        >
+          <div
+            className={`
+             translate-x-0 ring-main-color 
+            transition duration-150 w-10 h-10 rounded-full overflow-hidden relative  ring-2 `}
+          >
+            <Image
+              src="/logo/logo.jpg"
+              fill
+              sizes="(max-width: 768px) 100vw, 700px"
+              className="object-cover"
+            />
+          </div>
+
+          <span className="text-xs font-semibold">TREKKING THAILAND TOUR</span>
+        </li>
+        <ul className="pl-0 mr-10 flex gap-10">
+          <li
+            role="button"
+            className=" bg-white px-10 py-2 active:ring-main-color active:ring-2
+         font-medium text-main-color rounded-md drop-shadow-md"
+          >
+            Package
+          </li>
+          <li
+            role="button"
+            className=" bg-white px-10 py-2 active:ring-main-color active:ring-2
+         font-medium text-main-color rounded-md drop-shadow-md"
+          >
+            About us
+          </li>
+          <li
+            role="button"
+            className=" bg-white px-10 py-2 active:ring-main-color active:ring-2
+         font-medium text-main-color rounded-md drop-shadow-md"
+          >
+            Blog
+          </li>
+        </ul>
       </ul>
     </nav>
   );
