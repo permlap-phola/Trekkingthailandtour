@@ -6,8 +6,11 @@ import Image from "next/image";
 
 function Footer() {
   return (
-    <div className="w-screen h-96 bg-main-color flex flex-col gap-6 justify-start items-center p-5">
-      <div className="w-16 h-16 rounded-full overflow-hidden relative ">
+    <div
+      className="w-full h-96 bg-main-color px-5 flex flex-col md:flex-row gap-6 
+    md:justify-center justify-start items-center"
+    >
+      <div className="w-16 h-16 rounded-full overflow-hidden relative mt-5 ">
         <Image
           src="/logo/logo.jpg"
           fill

@@ -3,10 +3,11 @@ import React, { useState } from "react";
 import Facebook from "../contact-logo/facebook";
 import Line from "../contact-logo/line";
 import Phone from "../contact-logo/phone";
+import { useRouter } from "next/router";
 
 function Navbar() {
   const [activeMenu, setActivemenu] = useState(false);
-
+  const router = useRouter();
   const handleTriggerMenu = () => {
     setActivemenu(() => !activeMenu);
     if (activeMenu === true) {
@@ -16,7 +17,7 @@ function Navbar() {
     }
   };
   return (
-    <nav className=" top-5 w-full fixed z-10   ">
+    <nav className=" top-5 w-full fixed z-50   ">
       {/* Phone navbar */}
       <ul className="pl-0 md:hidden list-none flex justify-between font-Poppins z-20 ">
         <li
@@ -85,6 +86,11 @@ function Navbar() {
       {/* Desktop view */}
       <ul className="hidden md:flex justify-center gap-10 pl-0 list-none ">
         <li
+          onClick={() =>
+            router.push({
+              pathname: "/",
+            })
+          }
           role="button"
           className={`ml-3 w-56 pr-3  gap-2 h-10 ring-2 bg-main-color ring-main-color flex-row
          rounded-full overflow-hidden drop-shadow-md relative flex justify-between items-center text-third-color`}
@@ -106,22 +112,27 @@ function Navbar() {
         </li>
         <ul className="pl-0 mr-10 flex gap-10">
           <li
+            onClick={() =>
+              router.push({
+                pathname: "/package",
+              })
+            }
             role="button"
-            className=" bg-white px-10 py-2 active:ring-main-color active:ring-2
+            className=" bg-white lg:px-10 md:px-5 py-2 active:ring-main-color active:ring-2
          font-medium text-main-color rounded-md drop-shadow-md"
           >
             Package
           </li>
           <li
             role="button"
-            className=" bg-white px-10 py-2 active:ring-main-color active:ring-2
+            className=" bg-white lg:px-10 md:px-5 py-2 active:ring-main-color active:ring-2
          font-medium text-main-color rounded-md drop-shadow-md"
           >
             About us
           </li>
           <li
             role="button"
-            className=" bg-white px-10 py-2 active:ring-main-color active:ring-2
+            className=" bg-white lg:px-10 md:px-5 py-2 active:ring-main-color active:ring-2
          font-medium text-main-color rounded-md drop-shadow-md"
           >
             Blog
