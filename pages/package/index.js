@@ -7,10 +7,11 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { GiMountains } from "react-icons/gi";
 import { FaMountainCity } from "react-icons/fa6";
 import { AiFillStar } from "react-icons/ai";
-
 import "swiper/css";
 import "swiper/css/navigation";
 import Image from "next/image";
+import { sanityClient, urlFor } from "@/sanity";
+import { PortableText } from "@portabletext/react";
 const packageData = [
   {
     title: "Khao Yai Tour",
@@ -55,7 +56,7 @@ const packageData = [
     ],
   },
 ];
-function Index() {
+function Index({ tours }) {
   return (
     <div className="font-Poppins bg-third-color">
       <Head>
@@ -173,32 +174,105 @@ function Index() {
             })}
           </Swiper>
         </section>
-        <section className="w-full mt-20 flex justify-between">
-          <div className="w-5/12 ml-10 gap-5 text-center  flex flex-col items-center justify-center ">
-            <h2 className="uppercase mb-2 text-supper-main-color text-3xl font-semibold">
-              Khao Yai Tour
-            </h2>
-            <p className="text-xl text-black leading-tight font-normal">
-              &nbsp; &quot;Experience the breathtaking beauty of nature and
-              immerse yourself in the wonders of Kho Yai National Park, a Thai
-              paradise filled with lush forests, majestic waterfalls, and an
-              abundance of wildlife waiting to be discovered.&quot;
-            </p>
+        {tours.map((tour, index) => {
+          return (
+            <div key={index}>
+              <section className="w-full flex justify-between">
+                <div className="w-5/12 ml-10 gap-5 text-center  flex flex-col items-center justify-center ">
+                  <h2 className="uppercase mb-2 text-supper-main-color text-lg lg:text-3xl font-semibold">
+                    {tour.title}
+                  </h2>
+                  <div className="text-sm md:text-xl text-black leading-tight font-normal">
+                    <PortableText value={tour.body} />
+                  </div>
 
-            <button className="bg-supper-main-color px-10 py-2 rounded-lg text-white drop-shadow-md hover:ring-2 ring-white">
-              SEE ALL DETAIL
-            </button>
-          </div>
-          <div className="w-5/12 h-96 bg-slate-500 relative">
-            <Image
-              src="/image/tour/KhaoYai/elephant.jpg"
-              fill
-              className="object-cover"
-              placeholder="blur"
-              blurDataURL="data:image/jpeg;base64,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"
-            />
-          </div>
-        </section>
+                  <button className="bg-supper-main-color px-7 py-2 md:px-10 md:py-2 rounded-lg text-white drop-shadow-md hover:ring-2 ring-white">
+                    SEE ALL DETAIL
+                  </button>
+                </div>
+                <div className="w-5/12 h-96 bg-slate-500 relative overflow-hidden">
+                  <Image
+                    src={tour.mainImage.asset.url}
+                    fill
+                    className="object-cover transition duration-300 hover:scale-110"
+                    placeholder="blur"
+                    alt={tour.title + "At TREKKING THAILAND TOUR"}
+                    sizes="(max-width: 768px) 100vw, 700px"
+                    blurDataURL={tour.mainImage.asset.metadata.lqip}
+                  />
+                </div>
+              </section>
+              <section className="w-full grid grid-cols-4 grid-rows-2 h-96">
+                <div className="bg-yellow-200 col-span-1 row-span-1 relative overflow-hidden">
+                  <Image
+                    src={tour.images[0].mainImage.asset.url}
+                    fill
+                    className="object-cover transition duration-300 hover:scale-110"
+                    placeholder="blur"
+                    sizes="(max-width: 768px) 100vw, 700px"
+                    blurDataURL={tour.images[0].mainImage.asset.metadata.lqip}
+                    alt={tour.image[0].title + "At TREKKING THAILAND TOUR"}
+                  />
+                </div>
+                <div className="bg-blue-200 col-span-2 row-span-1 relative overflow-hidden">
+                  <Image
+                    src={tour.images[2].mainImage.asset.url}
+                    fill
+                    className="object-cover transition duration-300 hover:scale-110 "
+                    placeholder="blur"
+                    sizes="(max-width: 768px) 100vw, 700px"
+                    blurDataURL={tour.images[2].mainImage.asset.metadata.lqip}
+                    alt={tour.image[2].title + "At TREKKING THAILAND TOUR"}
+                  />
+                </div>
+                <div className="bg-gray-200 col-span-1 row-span-2 relative overflow-hidden  ">
+                  <Image
+                    src={tour.images[1].mainImage.asset.url}
+                    fill
+                    className="object-cover transition duration-300 hover:scale-110 "
+                    placeholder="blur"
+                    sizes="(max-width: 768px) 100vw, 700px"
+                    blurDataURL={tour.images[1].mainImage.asset.metadata.lqip}
+                    alt={tour.image[1].title + "At TREKKING THAILAND TOUR"}
+                  />
+                </div>
+                <div className="bg-pink-200 col-span-1 row-span-1 relative overflow-hidden">
+                  <Image
+                    src={tour.images[3].mainImage.asset.url}
+                    fill
+                    className="object-cover transition duration-300 hover:scale-110 "
+                    placeholder="blur"
+                    sizes="(max-width: 768px) 100vw, 700px"
+                    blurDataURL={tour.images[3].mainImage.asset.metadata.lqip}
+                    alt={tour.image[3].title + "At TREKKING THAILAND TOUR"}
+                  />
+                </div>
+                <div className="bg-yellow-200 col-span-1 row-span-1 relative overflow-hidden">
+                  <Image
+                    src={tour.images[4].mainImage.asset.url}
+                    fill
+                    className="object-cover transition duration-300 hover:scale-110 "
+                    placeholder="blur"
+                    sizes="(max-width: 768px) 100vw, 700px"
+                    blurDataURL={tour.images[4].mainImage.asset.metadata.lqip}
+                    alt={tour.image[4].title + "At TREKKING THAILAND TOUR"}
+                  />
+                </div>
+                <div className="bg-green-200 col-span-1 row-span-1 relative overflow-hidden">
+                  <Image
+                    src={tour.images[5].mainImage.asset.url}
+                    fill
+                    className="object-cover transition duration-300 hover:scale-110 "
+                    placeholder="blur"
+                    sizes="(max-width: 768px) 100vw, 700px"
+                    blurDataURL={tour.images[5].mainImage.asset.metadata.lqip}
+                    alt={tour.image[5].title + "At TREKKING THAILAND TOUR"}
+                  />
+                </div>
+              </section>
+            </div>
+          );
+        })}
       </main>
       <footer>
         <Footer />
@@ -208,3 +282,32 @@ function Index() {
 }
 
 export default Index;
+
+export async function getServerSideProps(context) {
+  const query = `*[_type == "package-tour-detail"]{
+    _id,
+      title,
+      mainImage{
+      asset->{
+              url,
+              metadata
+            }
+      },
+      body,
+    "images": images[]->{
+      title,
+        mainImage{
+        asset->{
+        url,
+        metadata
+        }
+        }
+    }
+  }`;
+  const tours = await sanityClient.fetch(query);
+  return {
+    props: {
+      tours,
+    },
+  };
+}

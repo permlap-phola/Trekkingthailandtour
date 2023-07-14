@@ -8,9 +8,9 @@ function Footer() {
   return (
     <div
       className="w-full h-96 bg-main-color px-5 flex flex-col md:flex-row gap-6 
-    md:justify-center justify-start items-center"
+    md:justify-center justify-center items-center"
     >
-      <div className="w-16 h-16 rounded-full overflow-hidden relative mt-5 ">
+      <div className="w-16 h-16 rounded-full overflow-hidden relative  ">
         <Image
           src="/logo/logo.jpg"
           fill
