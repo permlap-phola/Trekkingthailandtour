@@ -211,7 +211,7 @@ function Index({ tours }) {
                     placeholder="blur"
                     sizes="(max-width: 768px) 100vw, 700px"
                     blurDataURL={tour.images[0].mainImage.asset.metadata.lqip}
-                    alt={tour.image[0].title + "At TREKKING THAILAND TOUR"}
+                    alt={tour.images[0].title + "At TREKKING THAILAND TOUR"}
                   />
                 </div>
                 <div className="bg-blue-200 col-span-2 row-span-1 relative overflow-hidden">
@@ -222,7 +222,7 @@ function Index({ tours }) {
                     placeholder="blur"
                     sizes="(max-width: 768px) 100vw, 700px"
                     blurDataURL={tour.images[2].mainImage.asset.metadata.lqip}
-                    alt={tour.image[2].title + "At TREKKING THAILAND TOUR"}
+                    alt={tour.images[2].title + "At TREKKING THAILAND TOUR"}
                   />
                 </div>
                 <div className="bg-gray-200 col-span-1 row-span-2 relative overflow-hidden  ">
@@ -233,7 +233,7 @@ function Index({ tours }) {
                     placeholder="blur"
                     sizes="(max-width: 768px) 100vw, 700px"
                     blurDataURL={tour.images[1].mainImage.asset.metadata.lqip}
-                    alt={tour.image[1].title + "At TREKKING THAILAND TOUR"}
+                    alt={tour.images[1].title + "At TREKKING THAILAND TOUR"}
                   />
                 </div>
                 <div className="bg-pink-200 col-span-1 row-span-1 relative overflow-hidden">
@@ -244,7 +244,7 @@ function Index({ tours }) {
                     placeholder="blur"
                     sizes="(max-width: 768px) 100vw, 700px"
                     blurDataURL={tour.images[3].mainImage.asset.metadata.lqip}
-                    alt={tour.image[3].title + "At TREKKING THAILAND TOUR"}
+                    alt={tour.images[3].title + "At TREKKING THAILAND TOUR"}
                   />
                 </div>
                 <div className="bg-yellow-200 col-span-1 row-span-1 relative overflow-hidden">
@@ -255,7 +255,7 @@ function Index({ tours }) {
                     placeholder="blur"
                     sizes="(max-width: 768px) 100vw, 700px"
                     blurDataURL={tour.images[4].mainImage.asset.metadata.lqip}
-                    alt={tour.image[4].title + "At TREKKING THAILAND TOUR"}
+                    alt={tour.images[4].title + "At TREKKING THAILAND TOUR"}
                   />
                 </div>
                 <div className="bg-green-200 col-span-1 row-span-1 relative overflow-hidden">
@@ -266,7 +266,7 @@ function Index({ tours }) {
                     placeholder="blur"
                     sizes="(max-width: 768px) 100vw, 700px"
                     blurDataURL={tour.images[5].mainImage.asset.metadata.lqip}
-                    alt={tour.image[5].title + "At TREKKING THAILAND TOUR"}
+                    alt={tour.images[5].title + "At TREKKING THAILAND TOUR"}
                   />
                 </div>
               </section>
@@ -305,6 +305,7 @@ export async function getServerSideProps(context) {
     }
   }`;
   const tours = await sanityClient.fetch(query);
+
   return {
     props: {
       tours,
