@@ -24,7 +24,7 @@ export default function Home({ feedbacks }) {
     }, 300);
   }, []);
   return (
-    <div>
+    <div className="bg-third-color">
       <Head>
         <title>TREKKING THAILAND TOUR</title>
         <meta
@@ -270,8 +270,8 @@ export default function Home({ feedbacks }) {
         </footer>
       </div>
       <Parallax
-        pages={3}
-        className="static md:hidden"
+        pages={4}
+        className="static md:hidden bg-third-color"
         style={{ top: "0", left: "0" }}
       >
         <ParallaxLayer
@@ -428,11 +428,12 @@ export default function Home({ feedbacks }) {
           </div>
         </ParallaxLayer>
         <ParallaxLayer
-          style={{ backgroundColor: "#F2E3DB" }}
+          style={{ backgroundColor: "#F2E3DB", height: "max-content" }}
+          factor={2}
           offset={2}
           speed={0.5}
         >
-          <div className="w-full flex flex-col h-full justify-between  items-center gap-5">
+          <div className="w-full flex flex-col    justify-start  items-center gap-5">
             <div className="w-full flex flex-col h-full justify-center  items-center gap-5">
               <h2 className="font-Poppins font-bold uppercase text-second-color text-xl">
                 What people say about us
@@ -440,7 +441,7 @@ export default function Home({ feedbacks }) {
               <Swiper
                 pagination={true}
                 modules={[Pagination]}
-                className="w-full h-max "
+                className="w-full h-max  "
               >
                 {feedbacks.map((feedback, index) => {
                   const date = new Date(feedback.publishedAt);
@@ -451,8 +452,8 @@ export default function Home({ feedbacks }) {
                   });
                   return (
                     <SwiperSlide key={index}>
-                      <div className="w-full flex justify-center">
-                        <div className=" bg-white w-11/12 rounded-lg p-5 flex gap-3">
+                      <div className="w-full h-max flex justify-center">
+                        <div className=" bg-white w-11/12 rounded-lg h-max p-5 flex gap-3">
                           <div className="w-20 h-40 rounded-md overflow-hidden relative">
                             <Image
                               src={feedback.mainImage.asset.url}
@@ -487,9 +488,15 @@ export default function Home({ feedbacks }) {
                 })}
               </Swiper>
             </div>
-            <div id="our-contact">
-              <Footer />
-            </div>
+          </div>
+        </ParallaxLayer>
+        <ParallaxLayer
+          style={{ backgroundColor: "#F2E3DB" }}
+          offset={3}
+          speed={0.5}
+        >
+          <div className="flex h-full items-end">
+            <Footer />
           </div>
         </ParallaxLayer>
       </Parallax>
