@@ -64,10 +64,28 @@ function Navbar() {
         } `}
       >
         <button
+          onClick={() => {
+            router.push({
+              pathname: "/",
+            });
+            setActivemenu(() => false);
+          }}
           className=" bg-white px-10 py-2 active:ring-main-color active:ring-2
          font-medium text-main-color rounded-md drop-shadow-md"
         >
-          Tour
+          Homepage
+        </button>
+        <button
+          onClick={() => {
+            router.push({
+              pathname: "/package",
+            });
+            setActivemenu(() => false);
+          }}
+          className=" bg-white px-10 py-2 active:ring-main-color active:ring-2
+         font-medium text-main-color rounded-md drop-shadow-md"
+        >
+          Package
         </button>
         <button
           className=" bg-white px-10 py-2 active:ring-main-color active:ring-2

@@ -2,7 +2,7 @@ import {defineArrayMember, defineField, defineType} from 'sanity'
 
 export default defineType({
   name: 'package-tour-detail',
-  title: 'Package tour detail',
+  title: 'tour detail',
   type: 'document',
   fields: [
     defineField({
@@ -26,6 +26,11 @@ export default defineType({
       options: {
         hotspot: true,
       },
+    }),
+    defineField({
+      name: 'description',
+      title: 'description',
+      type: 'string',
     }),
     defineField({
       name: 'images',

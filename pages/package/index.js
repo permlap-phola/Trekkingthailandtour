@@ -1,7 +1,7 @@
 import Footer from "@/components/footer/footer";
 import Navbar from "@/components/navbar/navbar";
 import Head from "next/head";
-import React from "react";
+import React, { useState } from "react";
 import { Navigation, Pagination, Scrollbar, A11y } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { GiMountains } from "react-icons/gi";
@@ -36,7 +36,7 @@ const packageData = [
     icon: <FaMountainCity />,
     subTitle: "Aliquet fermentum facilisis elementum",
     numberOfPackage: "1",
-    mainPicture: "/image/tour/UNESCO/client.jpg",
+    mainPicture: "/image/tour/UNESCO/dankwian.jpg",
     blurDataURL:
       "data:image/jpeg;base64,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",
     listOfSubPackage: [{ title: "3 Days 2 Nights" }],
@@ -47,7 +47,7 @@ const packageData = [
     subTitle: "Aliquet fermentum facilisis elementum",
     numberOfPackage: "2",
     icon: <AiFillStar />,
-    mainPicture: "/image/tour/special/snake.jpg",
+    mainPicture: "/image/tour/special/bird.jpg",
     blurDataURL:
       "data:image/jpeg;base64,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",
     listOfSubPackage: [
@@ -56,6 +56,7 @@ const packageData = [
     ],
   },
 ];
+
 function Index({ tours }) {
   return (
     <div className="font-Poppins bg-third-color">
@@ -177,97 +178,186 @@ function Index({ tours }) {
         {tours.map((tour, index) => {
           return (
             <div key={index}>
-              <section className="w-full flex justify-between">
-                <div className="w-5/12 ml-10 gap-5 text-center  flex flex-col items-center justify-center ">
+              <section
+                className={`w-full flex justify-between ${
+                  index % 2 === 0 ? "flex-row" : "flex-row-reverse"
+                }`}
+              >
+                <div
+                  className={`w-full h-96  md:w-5/12 ml-0 gap-2 ${
+                    index % 2 === 0 ? "md:ml-10 lg:ml-20" : "md:mr-10 lg:mr-20"
+                  } text-center  
+                flex flex-col items-center justify-center `}
+                >
                   <h2 className="uppercase mb-2 text-supper-main-color text-lg lg:text-3xl font-semibold">
                     {tour.title}
                   </h2>
-                  <div className="text-sm md:text-xl text-black leading-tight font-normal">
+                  <div className="text-xs md:text-xs lg:text-base text-black w-10/12 md:w-11/12 leading-tight font-normal">
                     <PortableText value={tour.body} />
                   </div>
 
-                  <button className="bg-supper-main-color px-7 py-2 md:px-10 md:py-2 rounded-lg text-white drop-shadow-md hover:ring-2 ring-white">
+                  <button
+                    className="bg-supper-main-color px-7 py-2 md:px-10 md:py-2
+                   rounded-lg text-white drop-shadow-md hover:ring-2 ring-white"
+                  >
                     SEE ALL DETAIL
                   </button>
                 </div>
-                <div className="w-5/12 h-96 bg-slate-500 relative overflow-hidden">
+                <div className="w-5/12 h-96  relative overflow-hidden group">
                   <Image
                     src={tour.mainImage.asset.url}
                     fill
-                    className="object-cover transition duration-300 hover:scale-110"
+                    className="object-cover transition duration-300 group-hover:scale-110"
                     placeholder="blur"
                     alt={tour.title + "At TREKKING THAILAND TOUR"}
                     sizes="(max-width: 768px) 100vw, 700px"
                     blurDataURL={tour.mainImage.asset.metadata.lqip}
                   />
+                  <div
+                    className="w-full flex flex-col justify-center items-center
+                   h-full bg-second-color/0 text-center group-hover:bg-second-color/70 transition duration-150 translate-y-96 group-hover:translate-y-0 "
+                  >
+                    <h3 className="text-sm md:text-3xl font-bold text-white">
+                      {tour.title}
+                    </h3>
+                    <h6 className="text-xs md:text-lg font-normal w-full md:w-3/4 text-white">
+                      {tour.description}
+                    </h6>
+                  </div>
                 </div>
               </section>
               <section className="w-full grid grid-cols-4 grid-rows-2 h-96">
-                <div className="bg-yellow-200 col-span-1 row-span-1 relative overflow-hidden">
+                <div className="bg-yellow-200 col-span-1 row-span-1 relative overflow-hidden group">
                   <Image
                     src={tour.images[0].mainImage.asset.url}
                     fill
-                    className="object-cover transition duration-300 hover:scale-110"
+                    className="object-cover transition duration-300 group-hover:scale-110"
                     placeholder="blur"
                     sizes="(max-width: 768px) 100vw, 700px"
                     blurDataURL={tour.images[0].mainImage.asset.metadata.lqip}
                     alt={tour.images[0].title + "At TREKKING THAILAND TOUR"}
                   />
+                  <div
+                    className="w-full hidden  md:flex flex-col justify-center items-center
+                   h-full bg-second-color/0 text-center group-hover:bg-second-color/70 transition duration-150 translate-y-96 group-hover:translate-y-0 "
+                  >
+                    <h3 className="text-sm md:text-xl font-semibold text-white">
+                      {tour.images[0].title}
+                    </h3>
+                    <h6 className="font-normal text-xs md:text-sm mt-2 w-3/4 text-white">
+                      {tour.images[0]?.description}
+                    </h6>
+                  </div>
                 </div>
-                <div className="bg-blue-200 col-span-2 row-span-1 relative overflow-hidden">
+                <div className="bg-blue-200 col-span-2 row-span-1 relative overflow-hidden group">
                   <Image
                     src={tour.images[2].mainImage.asset.url}
                     fill
-                    className="object-cover transition duration-300 hover:scale-110 "
+                    className="object-cover transition duration-300 group-hover:scale-110 object-[left_calc(50%)_top_calc(34%)] "
                     placeholder="blur"
                     sizes="(max-width: 768px) 100vw, 700px"
                     blurDataURL={tour.images[2].mainImage.asset.metadata.lqip}
                     alt={tour.images[2].title + "At TREKKING THAILAND TOUR"}
                   />
+                  <div
+                    className="w-full hidden  md:flex flex-col justify-center items-center
+                   h-full bg-second-color/0 text-center group-hover:bg-second-color/70 transition duration-150 translate-y-96 group-hover:translate-y-0 "
+                  >
+                    <h3 className="text-xl font-semibold text-white">
+                      {tour.images[2].title}
+                    </h3>
+                    <h6 className="font-normal text-sm mt-2 w-3/4 text-white">
+                      {tour.images[2]?.description}
+                    </h6>
+                  </div>
                 </div>
-                <div className="bg-gray-200 col-span-1 row-span-2 relative overflow-hidden  ">
+                <div className="bg-gray-200 col-span-1 row-span-2 relative overflow-hidden group  ">
                   <Image
                     src={tour.images[1].mainImage.asset.url}
                     fill
-                    className="object-cover transition duration-300 hover:scale-110 "
+                    className="object-cover transition duration-300 group-hover:scale-110 "
                     placeholder="blur"
                     sizes="(max-width: 768px) 100vw, 700px"
                     blurDataURL={tour.images[1].mainImage.asset.metadata.lqip}
                     alt={tour.images[1].title + "At TREKKING THAILAND TOUR"}
                   />
+                  <div
+                    className="w-full hidden  md:flex flex-col justify-center items-center
+                   h-full bg-second-color/0 text-center group-hover:bg-second-color/70 transition duration-150 translate-y-96 group-hover:translate-y-0 "
+                  >
+                    <h3 className="text-xl font-semibold text-white">
+                      {tour.images[1].title}
+                    </h3>
+                    <h6 className="font-normal text-sm mt-2 w-3/4 text-white">
+                      {tour.images[1]?.description}
+                    </h6>
+                  </div>
                 </div>
-                <div className="bg-pink-200 col-span-1 row-span-1 relative overflow-hidden">
+                <div className="bg-pink-200 col-span-1 row-span-1 relative overflow-hidden group">
                   <Image
                     src={tour.images[3].mainImage.asset.url}
                     fill
-                    className="object-cover transition duration-300 hover:scale-110 "
+                    className="object-cover transition duration-300 group-hover:scale-110 "
                     placeholder="blur"
                     sizes="(max-width: 768px) 100vw, 700px"
                     blurDataURL={tour.images[3].mainImage.asset.metadata.lqip}
                     alt={tour.images[3].title + "At TREKKING THAILAND TOUR"}
                   />
+                  <div
+                    className="w-full hidden  md:flex flex-col justify-center items-center
+                   h-full bg-second-color/0 text-center group-hover:bg-second-color/70 transition duration-150 translate-y-96 group-hover:translate-y-0 "
+                  >
+                    <h3 className="text-xl font-semibold text-white">
+                      {tour.images[3].title}
+                    </h3>
+                    <h6 className="font-normal text-sm mt-2 w-3/4 text-white">
+                      {tour.images[3]?.description}
+                    </h6>
+                  </div>
                 </div>
-                <div className="bg-yellow-200 col-span-1 row-span-1 relative overflow-hidden">
+                <div className="bg-yellow-200 col-span-1 row-span-1 relative overflow-hidden group">
                   <Image
                     src={tour.images[4].mainImage.asset.url}
                     fill
-                    className="object-cover transition duration-300 hover:scale-110 "
+                    className="object-cover transition duration-300 group-hover:scale-110 "
                     placeholder="blur"
                     sizes="(max-width: 768px) 100vw, 700px"
                     blurDataURL={tour.images[4].mainImage.asset.metadata.lqip}
                     alt={tour.images[4].title + "At TREKKING THAILAND TOUR"}
                   />
+                  <div
+                    className="w-full hidden  md:flex flex-col justify-center items-center
+                   h-full bg-second-color/0 text-center group-hover:bg-second-color/70 transition duration-150 translate-y-96 group-hover:translate-y-0 "
+                  >
+                    <h3 className="text-xl font-semibold text-white">
+                      {tour.images[4].title}
+                    </h3>
+                    <h6 className="font-normal text-sm mt-2 w-3/4 text-white">
+                      {tour.images[4]?.description}
+                    </h6>
+                  </div>
                 </div>
-                <div className="bg-green-200 col-span-1 row-span-1 relative overflow-hidden">
+                <div className="bg-green-200 col-span-1 row-span-1 relative overflow-hidden group">
                   <Image
                     src={tour.images[5].mainImage.asset.url}
                     fill
-                    className="object-cover transition duration-300 hover:scale-110 "
+                    className="object-cover transition duration-300 group-hover:scale-110 "
                     placeholder="blur"
                     sizes="(max-width: 768px) 100vw, 700px"
                     blurDataURL={tour.images[5].mainImage.asset.metadata.lqip}
                     alt={tour.images[5].title + "At TREKKING THAILAND TOUR"}
                   />
+                  <div
+                    className="w-full hidden  md:flex flex-col justify-center items-center
+                   h-full bg-second-color/0 text-center group-hover:bg-second-color/70 transition duration-150 translate-y-96 group-hover:translate-y-0 "
+                  >
+                    <h3 className="text-xl font-semibold text-white">
+                      {tour.images[5].title}
+                    </h3>
+                    <h6 className="font-normal text-sm mt-2 w-3/4 text-white">
+                      {tour.images[5]?.description}
+                    </h6>
+                  </div>
                 </div>
               </section>
             </div>
@@ -287,6 +377,7 @@ export async function getServerSideProps(context) {
   const query = `*[_type == "package-tour-detail"]{
     _id,
       title,
+      description,
       mainImage{
       asset->{
               url,
@@ -296,6 +387,7 @@ export async function getServerSideProps(context) {
       body,
     "images": images[]->{
       title,
+      description,
         mainImage{
         asset->{
         url,
