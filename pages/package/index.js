@@ -12,52 +12,21 @@ import "swiper/css/navigation";
 import Image from "next/image";
 import { sanityClient, urlFor } from "@/sanity";
 import { PortableText } from "@portabletext/react";
+import { useRouter } from "next/router";
 const packageData = [
   {
-    title: "Khao Yai Tour",
     icon: <GiMountains />,
-    subTitle: "Sed nulla sagittis diam nunc a tortor. Pharetr",
-    numberOfPackage: "7",
-    mainPicture: "/image/tour/KhaoYai/client.jpg",
-    blurDataURL:
-      "data:image/jpeg;base64,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AAAAAAAAACiKCiAigAAA1CDIoACoAogCiKAqAiiAKqAKIAogCiAKIAogCiAAICoAAgACAIAICKCCCiFQEqVa5UKgCgAAAAAAAAAAAAAAAAAAAAAAAAAAAKIAoAgADUIMiiAKIAoigogCiKAqAiiAKqAKIAogCiAKIAqAACAqAAIAIACCKAIAglFSpVRRKlEFAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAUQBpEGUURQFQBRAFEUFEAVUBFEAURQAAFQBRAFQAAAAQFQAEABAUEEAQARKqCpUoiggCgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAANAgiKIAoAKIAoioCoAoiiKIAogCiKAqAKIAqAAAAIAAgKgiioACCAIAJUEVRBAABQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHuAiAAAAKIAoACoIKIqgqCIoigAAAAAAAACAKgACCgCAqCAIqAIIKIIoIAoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD3EVEAAAAAAFQBQAAAUQBQBAAABAAAAAEAAFAEABAAQBAAQQUQFEAFAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAewoiAAAAAAAACoAoAAAAAAAiiAKgAAAAgKgAAgAIAioAgCoCKCKgoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD3ARAAAAAAAAAABUUAAAAAAAQEUQAAABAVAAEAAQAEFEABAUEAUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB7gIgAAAAAAAAAAAAqAKIAAAAAAAIAAAggAAgAIKAgAIACKoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD3FERBQEFAQUBBQEFAQVAAAAAAAAAEVAAAEAAEAABAQAAEAARUVQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGgBEAAAAAAAAAAAAQVAAAAAAQAAAEAAAQAEABAARUAAVUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABpARAAAAEFAQVAAAAAEVAAAAAEAAAEAARUABAAQAAEAABFUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABpARAAAAAAAAEFQAABFAQAAAEAARUAABAAEABAABAAFBFQUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABpARAAAAAAAABFQAAAAEAAABAAEVAAAQAEABAAEVAAFURUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABpARAAAAAAAABAAAAABAAAAQABAAABAAQAEAAQAAFUQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAf//Z",
-    listOfSubPackage: [
-      { title: "Khao Yai Amazing One day Tour" },
-      { title: "Half Day tour Khao Yai" },
-      { title: "One Day and Night Safari Khao Yai National Park" },
-      { title: "2 Days Tour at Khao Yai National Park" },
-      { title: "Half Day Tour (Bat Cave)" },
-      { title: "Reptile Tour at Khao Yai" },
-      { title: "Wildlife Photography Khao Yai" },
-    ],
   },
   {
-    title: "Korat The UNESCO Triple Heritage City Tour",
     icon: <FaMountainCity />,
-    subTitle: "Aliquet fermentum facilisis elementum",
-    numberOfPackage: "1",
-    mainPicture: "/image/tour/UNESCO/dankwian.jpg",
-    blurDataURL:
-      "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gHYSUNDX1BST0ZJTEUAAQEAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADb/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAHoAooDASIAAhEBAxEB/8QAGQABAQEBAQEAAAAAAAAAAAAAAAECBAMF/8QAFhABAQEAAAAAAAAAAAAAAAAAABEB/8QAFwEBAQEBAAAAAAAAAAAAAAAAAAECA//EABURAQEAAAAAAAAAAAAAAAAAAAAR/9oADAMBAAIRAxEAPwDiEVyYAAAAAAFRQAAAAFQUUAQAAAARUAAEEVAEVFUBAEVAQAERUBEVBUTVTQRNVNBE1WRUTVQE1NVNFRBNBABURUBAFUAEAAUAFVFEFRQUARVRQFRVQVFAABRFAAB3gOaioAoiiAAAAKIoAAACoKgCiAKCAAAAAgACKigioAgAgIAgAiKgqIqaCJqs6CJqpoqJqpoImiaKiKgIioKIAIAqggCgCKIoKqAiqigoiqigAqoCKACgAAAogD6Ag5qoAAAgACiAKACiCiiAigAAAAAAAIAAIoAAgIACAIqAiKgIioKMqgImqmiomqmgiaJoImqmioioqoioCIqAIAoAAqAiqgCqiiKIoKqCo0IoKIoiiKAqAKAAADvEHNVAAAEUQBRFAAUUQBRFEAAAAAAAABBQBAVBAAQAEARUAQQBBBRBAGdXUFRNVNBE1WVBnVQVEXUFTUXUBAQUBAAAUQBVQEaEVUVUAVUURRFBQAVUBFEUAAAAHeIOaqIAoiqgqAKIAoACoAogCiKIAgKIAogoqAAIAAgAIACAIACCCiCAIIBrKoqpqKgJqLrOimoJoJqKmioioCAgoIAAAKgCqgqNCKCqyojQigoiiKrKgoiiKIoCoAogDvEGFUQBRAFEBFVAFEAURQAAUQBRBUUQBRAAEBUAAQAEAEABBAEAUZVFEBAGdVNFRNVnQE0TRRnVQETV1kUQTRRBAVBBVEKCiCo0rKgqsqI0IoiqyoNCKIoigoigogIogCgA7hBhVEAUQBoZUFEBFEAVWVBRBRRAFEAUQEUQBUEBRAAEBUEBUEAQFUQQBBAEEA1BBRBANZXU0VNQTQE0TRUQ1BRBKqqiUBaM0oNDNWg0rNBGlZURpWVBoQEaVlQVWVEVWVBRAGhAFEAdwgwKIAogCqyoKIKiiANDKgogCiAKIAogIogCiICiAKiCioIKqCACACCAIIAggomqyAmiaKJomgiaaiqJoyBupTdTdFN1Km6lFWpUBVpUFFpUAaq1kojdWsVaI2rFWiNjKg0rKiKrKgqsqIqsqCiFBRKA7hlWBRCgolAWqzSg0MqCiAi0QoNDNKDQlKCiUBRBRaVEBRAFEKAJSgqJSgCAAiUFQQBBBRBAEEUNQTRTU0Z0BNN1N0U3Wd03U3RTdZ3TdZVVQEUBBFEAUQUURQWrWRRurWKtEbq1irURujNWiNVazQGlrNKDVKgDQzVoiiUoO0SjA0M0oNDNKDRWVBaVKUFq1mlBqjNWiKJRRRKAtKgC0qALSpSgtKlSg1UqALUogKJUoKJUoLUEoKlSigglFEEoCFQU3UGd0F3Wd03U3RTdZ3TdZ3VVd1ndN1kUBAAEQAUAQFEAUAAAFEFGqtZKDdWsVaI3VrFWg1VrNKI0tZpQapWatQWlSlB3UrNKyjVKzQGqVmlBqlSlBatZpQaozSg1SpSgtKlKItWs0oNUrNKDVKzSg1USlBSpSgtKzRRaVEBaJSgCVKC0qJQVKVBSoJQWolSgtZpU3RTdSm6zuqLus7pus7opus7puoKIAAICoAgAAAAAAAAACiAKIqqpUAaq1hVGqtYq0RulYq1BulYpQbpWaUHfSs0rDLVKzSg1Ss0oNUrNWg1Ss0oNUrNKDVKzVUWlQBqlZpRGqVmlBorNKDVRKUFpUqUGqVmlBaVKlBaVKUValSpQWlSpQWpSpQKVKlUWpUqboq1ndKzugu6zum6zuirus7qbqKqoIgqAIAAAAAAAAAAAAAAAAAAKgCiCigAKgotKgKtKgDvpUpWGGqVmlBqlZpQapWaUGqVmrQWrWaUGqVmlBqlZpQapWaUGqVKUFpUpQWlZpQapWaUGqlSlUWlZpQWlSpQWlSpQWlSpQWpUqUFqVKlFWpupupuqLus7qbqbopupUBQQEAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABR20rNKjLVKzSg1Ss0oNUrNKDVWs0oNUrNKDVKzSg1VrFKDdKzSg1Ss0oNUrNKDVKzSg1UrNKDVKzSgtKlSg1UqVKDVSpUqjVSpUoq1KlSgtTdTdZ3Qa3Wd1KiqtQRBUBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB0UrNKrLVWsUoN0rFKDdKxVoNUrNKDdKxVoNUrNKDVKzSg3SsVaDVKzSg1Ss0oNUrNKDVSs0oNUrNKDVSs0oNVKzSitVKzUqjVSs1KDVTdZoKtQAARAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAbpWRtGqVkBqlZAbpWAG6VirQbpWKUG6VilBurWKVEbpWKUg3SsUordKxSg3SsUoN0rFKDVKxSg1Ss1Ko1SsgLUoCgCACIKgAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAKA0AAAAAAAAAAACgAAAAAAAAAAAAAgAAAAAiCoAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACiCiiAKIoAAAAAAACgAAAAAAAAAAAgAgKIAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACgAAqAKIAogCiAKIAogCiAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAoAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACgAAAACggoCCgIoAAAAAgoCCgIAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAosIogsICDUIDI1CAzCNQgMwjcIDMI1CIjMI1CAzCNQgMwjUIDMI1CAzCNQgMwjUIDEI1CAzEbiQGRqJBUFiAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA9IRqEQSEahAZhGoQGYRqEBmEahBGYsWEBIRYsBmEahAZhGoQGYRqEBmEahAZhGoQRmEWEBmEahAZiRqEFZiRuJAZiRuJAYhGoQGBqJFVBUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB0QijIkIoCQjQDMI1CCMxYsICQiwBIRQEhFICQjUAZhGoCMwjQDIpAQUgMjUIDIsIDMGokBkaiQGYkahBWYkaiQGYkbiRRlGoiqgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAOoVWRmKoCCgIKCIKAgoCKKCCgIKAgoIgoCCgMigIKAyKAiNICI0iCI0gMkUFZRpAZiRtFGYjSKMioqgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAOxQYAAQAABQQUBBQEFFEUAABAAAAEFAQUBBUBBRBEUBEaQERpAZFAZRpEVEaRRlGkUZRpFVkVFAAAAAAAAAAAAAAAAAAAAAAAAAFBFAAUREFAQUB2AMgCggoCCgIoAAAAoIKCIKAgoCCgIKAgAIKAgAIKgIKgIKgIjSIIigrIqAiKKMo0ijKNIqsiooAAAAAAAAAAAAAAAAAAAoIoAKCICgiKAAKggoDrARQFBBQEFARQAAAAAFBEBQQUBBQEAAABBUARQEABBUBBUBEUQRFQVBUBEUUZRpAZRpFGRUVUAUAAAAAAAAAAAAAAAUAFEAEBQEBRAAEAUEFAdYCNgAgAAAAAAoAAAACAAAAAAAAIKgAAIKgCKAgAIigIioggqAiKIqIqKIiijKNIoyjSKqIqKAAAAAAAAAAAAAACgAoIgqKIAqAAIKAAAACDrAGgAAAAABQAAAAAAEAAAAAAAAAAQABAAABAAQAEQEBABAEVEBRAFEQFEQFVEBQAAAAAAAAAAAAABQAUBEUAQUEAARQAAEAAH//2Q==",
-    listOfSubPackage: [{ title: "3 Days 2 Nights" }],
   },
   {
-    title: "Special Tour",
-
-    subTitle: "Aliquet fermentum facilisis elementum",
-    numberOfPackage: "2",
     icon: <AiFillStar />,
-    mainPicture: "/image/tour/special/bird.jpg",
-    blurDataURL:
-      "data:image/jpeg;base64,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",
-    listOfSubPackage: [
-      { title: "Bird watching Tour" },
-      { title: "BT-2 Southern Thailand Tours 5 Days" },
-    ],
   },
 ];
 
 function Index({ tours }) {
+  const router = useRouter();
   return (
     <div className="font-Poppins bg-third-color">
       <Head>
@@ -100,7 +69,7 @@ function Index({ tours }) {
             modules={[Navigation, Pagination, Scrollbar, A11y]}
             className="w-3/4 flex justify-center my-10 mySwiper"
           >
-            {packageData.map((tour, index) => {
+            {tours.map((tour, index) => {
               return (
                 <SwiperSlide key={index}>
                   <div className="w-full flex justify-center">
@@ -114,7 +83,7 @@ function Index({ tours }) {
                             className="w-8 h-8 text-2xl rounded-full flex items-center 
                           justify-center bg-supper-main-color text-white"
                           >
-                            {tour.icon}
+                            {packageData[index].icon}
                           </div>
 
                           <h2 className="text-white font-medium lg:w-52 ">
@@ -122,12 +91,12 @@ function Index({ tours }) {
                           </h2>
                         </div>
                         <span className="px-10 text-white font-light text-sm">
-                          {tour.subTitle}
+                          {tour.shortDescription}
                         </span>
                       </header>
                       <div className=" mt-5  gap-2 flex flex-col justify-center items-center">
                         <span className="text-supper-main-color font-semibold text-7xl">
-                          {tour.numberOfPackage}
+                          {tour.subTour?.length}
                         </span>
                         <span className="text-3xl text-white">PACKAGES</span>
                         <button
@@ -137,22 +106,30 @@ function Index({ tours }) {
                           BUY NOW
                         </button>
                       </div>
-                      <div className="w-full h-40 bg-slate-400 relative">
-                        <Image
-                          src={tour.mainPicture}
-                          fill
-                          className="object-cover"
-                          placeholder="blur"
-                          blurDataURL={tour.blurDataURL}
-                        />
-                      </div>
+                      {tour?.coverImage?.asset?.url && (
+                        <div className="w-full h-40 bg-slate-400 relative">
+                          <Image
+                            src={tour.coverImage.asset.url}
+                            fill
+                            className="object-cover"
+                            placeholder="blur"
+                            blurDataURL={tour.coverImage.asset.metadata.lqip}
+                          />
+                        </div>
+                      )}
                       <ul className="mt-5 w-full px-5 flex flex-col gap-1 mb-5 ">
                         <span className="text-sm mb-5 text-white">
                           {tour.title} includes:{" "}
                         </span>
-                        {tour.listOfSubPackage.map((list, index) => {
+                        {tour.subTour?.map((list, index) => {
                           return (
                             <li
+                              onClick={() =>
+                                router.push({
+                                  pathname: `/package/${tour.slug.current}`,
+                                  hash: `#${list.slug.current}`,
+                                })
+                              }
                               key={index}
                               className="text-xs text-white font-light flex gap-2 items-center hover:font-medium cursor-pointer"
                             >
@@ -163,6 +140,11 @@ function Index({ tours }) {
                         })}
                       </ul>
                       <button
+                        onClick={() =>
+                          router.push({
+                            pathname: `/package/${tour.slug.current}`,
+                          })
+                        }
                         className="w-full py-2 text-center text-white font-semibold bg-main-color hover:bg-supper-main-color transition duration-150
                        uppercase"
                       >
@@ -179,12 +161,12 @@ function Index({ tours }) {
           return (
             <div key={index}>
               <section
-                className={`w-full flex justify-between ${
+                className={`w-full flex justify-center md:justify-between ${
                   index % 2 === 0 ? "flex-row" : "flex-row-reverse"
                 }`}
               >
                 <div
-                  className={`w-full h-96  md:w-5/12 ml-0 gap-2 ${
+                  className={`w-10/12 h-96  md:w-5/12 ml-0 mr-0 gap-2 ${
                     index % 2 === 0 ? "md:ml-10 lg:ml-20" : "md:mr-10 lg:mr-20"
                   } text-center  
                 flex flex-col items-center justify-center `}
@@ -197,13 +179,18 @@ function Index({ tours }) {
                   </div>
 
                   <button
+                    onClick={() =>
+                      router.push({
+                        pathname: `/package/${tour.slug.current}`,
+                      })
+                    }
                     className="bg-supper-main-color px-7 py-2 md:px-10 md:py-2
                    rounded-lg text-white drop-shadow-md hover:ring-2 ring-white"
                   >
                     SEE ALL DETAIL
                   </button>
                 </div>
-                <div className="w-5/12 h-96  relative overflow-hidden group">
+                <div className="w-5/12 h-96 hidden md:block  relative overflow-hidden group">
                   <Image
                     src={tour.mainImage.asset.url}
                     fill
@@ -376,26 +363,39 @@ export default Index;
 export async function getServerSideProps(context) {
   const query = `*[_type == "package-tour-detail"]{
     _id,
+    title,
+    slug,
+    shortDescription,
+    coverImage{
+    asset->{
+         url,
+        metadata
+          }
+    },
+    description,
+    mainImage{
+    asset->{
+            url,
+            metadata
+          }
+    },
+    body,
+  "subTour": subTour[]->{
+      _id,
       title,
-      description,
+      slug
+  },
+  "images": images[]->{
+    title,
+    description,
       mainImage{
       asset->{
-              url,
-              metadata
-            }
-      },
-      body,
-    "images": images[]->{
-      title,
-      description,
-        mainImage{
-        asset->{
-        url,
-        metadata
-        }
-        }
-    }
-  }`;
+      url,
+      metadata
+      }
+      }
+  }
+}`;
   const tours = await sanityClient.fetch(query);
 
   return {

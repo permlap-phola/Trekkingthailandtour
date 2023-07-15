@@ -8,12 +8,13 @@ import "swiper/css";
 import "swiper/css/pagination";
 import { XyzTransitionGroup } from "@animxyz/react";
 import Head from "next/head";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import TheLine from "@/components/svg/line";
 import { sanityClient } from "@/sanity";
 import { PortableText } from "@portabletext/react";
 import { useRouter } from "next/router";
-import Script from "next/script";
+import Link from "next/link";
+
 export default function Home({ feedbacks }) {
   const router = useRouter();
   const [trigger, setTrigger] = useState(false);
@@ -161,7 +162,7 @@ export default function Home({ feedbacks }) {
             </div>
           </section>
           <section className="w-full h-[40rem] items-center bg-second-color flex justify-evenly">
-            <div className="lg:w-96 w-72">
+            <div className="lg:w-96 w-72 relative z-40">
               <div>
                 <span className="text-xl lg:text-4xl font-bold text-white">
                   Let&apos;s explore the{" "}
@@ -181,9 +182,11 @@ export default function Home({ feedbacks }) {
                 </span>
               </div>
               <div className="w-full flex gap-5 mt-2 justify-center">
-                <button className="w-40 py-2 bg-supper-main-color font-semibold rounded-xl text-white drop-shadow-md hover:scale-110 transition duration-150">
-                  Contact us
-                </button>
+                <Link href="#our-contact">
+                  <button className="w-40 py-2 bg-supper-main-color font-semibold rounded-xl text-white drop-shadow-md hover:scale-110 transition duration-150">
+                    Contact us
+                  </button>
+                </Link>
                 <button
                   onClick={() =>
                     router.push({
@@ -262,7 +265,7 @@ export default function Home({ feedbacks }) {
             </div>
           </section>
         </main>
-        <footer>
+        <footer id="our-contact">
           <Footer />
         </footer>
       </div>
@@ -406,10 +409,19 @@ export default function Home({ feedbacks }) {
               - Trekking Thailand Tour.
             </div>
             <div className="w-10/12 flex gap-5">
-              <button className="w-36 h-max font-semibold text-white text-lg p-2 drop-shadow-lg hover:ring-2 ring-white active:ring-4 rounded-xl bg-supper-main-color flex justify-center items-center">
-                contact us
-              </button>
-              <button className="w-36 h-max font-semibold text-supper-main-color  text-lg p-2 drop-shadow-lg hover:ring-2 ring-supper-main-color active:ring-4 rounded-xl bg-white flex justify-center items-center">
+              <Link href="#our-contact">
+                <button className="w-36 h-max font-semibold text-white text-lg p-2 drop-shadow-lg hover:ring-2 ring-white active:ring-4 rounded-xl bg-supper-main-color flex justify-center items-center">
+                  contact us
+                </button>
+              </Link>
+              <button
+                onClick={() =>
+                  router.push({
+                    pathname: "/package",
+                  })
+                }
+                className="w-36 h-max font-semibold text-supper-main-color  text-lg p-2 drop-shadow-lg hover:ring-2 ring-supper-main-color active:ring-4 rounded-xl bg-white flex justify-center items-center"
+              >
                 learn more
               </button>
             </div>
@@ -475,7 +487,9 @@ export default function Home({ feedbacks }) {
                 })}
               </Swiper>
             </div>
-            <Footer />
+            <div id="our-contact">
+              <Footer />
+            </div>
           </div>
         </ParallaxLayer>
       </Parallax>
