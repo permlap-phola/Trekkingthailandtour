@@ -53,7 +53,13 @@ function Navbar() {
           )}
         </li>
         <li className="mr-2 flex justify-center items-center gap-2">
-          <Facebook />
+          <a
+            target="_blank"
+            href="https://www.facebook.com/trekkingthailandtour"
+            rel="noopener noreferrer"
+          >
+            <Facebook />
+          </a>
           <Line />
           <Phone />
         </li>
@@ -86,18 +92,6 @@ function Navbar() {
          font-medium text-main-color rounded-md drop-shadow-md"
         >
           Package
-        </button>
-        <button
-          className=" bg-white px-10 py-2 active:ring-main-color active:ring-2
-         font-medium text-main-color rounded-md drop-shadow-md"
-        >
-          About us
-        </button>
-        <button
-          className=" bg-white px-10 py-2 active:ring-main-color active:ring-2
-         font-medium text-main-color rounded-md drop-shadow-md"
-        >
-          Blog
         </button>
       </div>
 
@@ -140,20 +134,6 @@ function Navbar() {
          font-medium text-main-color rounded-md drop-shadow-md"
           >
             Package
-          </li>
-          <li
-            role="button"
-            className=" bg-white lg:px-10 md:px-5 py-2 active:ring-main-color active:ring-2
-         font-medium text-main-color rounded-md drop-shadow-md"
-          >
-            About us
-          </li>
-          <li
-            role="button"
-            className=" bg-white lg:px-10 md:px-5 py-2 active:ring-main-color active:ring-2
-         font-medium text-main-color rounded-md drop-shadow-md"
-          >
-            Blog
           </li>
         </ul>
       </ul>

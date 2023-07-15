@@ -16,9 +16,10 @@ function Footer() {
   useEffect(() => {
     setBrower(currentBrowser(window));
   }, [router.isReady]);
-
+  console.log(brower);
   return (
     <div
+      id="contact-us"
       className="w-full h-96 bg-main-color px-5 flex flex-col md:flex-row gap-6 
     md:justify-center justify-center items-center"
     >
