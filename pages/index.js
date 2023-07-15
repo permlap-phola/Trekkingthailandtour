@@ -28,7 +28,8 @@ export default function Home({ feedbacks }) {
         <title>TREKKING THAILAND TOUR</title>
         <meta
           name="description"
-          content="Trekking Thailand Tour -    has been established with love and passion for nature , wildlife, and the beauty of the various Thai local ways of lives. Our experienced tour guides, specialized in each branch of nature, are ready to take you to explore the esthetic touch of Thai nature. คืดถึงเที่ยวที่เขาใหญ่ คิดถึง Trekking Thailand Tour"
+          content="Trekking Thailand Tour -    has been established with love and passion for nature , wildlife, and the beauty of the various Thai local ways of lives. Our experienced tour guides, specialized in each branch of nature, are ready to take you to explore the esthetic touch of Thai nature. คืดถึงเที่ยวที่เขาใหญ่ คิดถึง Trekking Thailand Tour.  
+          Experience the wonders of Khao Yoi, Thailand with Trekking Thailand Tour. Our local tour guides will take you on an unforgettable journey through breathtaking landscapes and hidden gems. Book your adventure today!"
         />
         <meta
           name="keywords"
