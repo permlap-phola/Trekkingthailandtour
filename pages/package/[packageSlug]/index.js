@@ -48,7 +48,11 @@ function Index({ tourPackage, randomNumberIcon }) {
       <main className="flex-col flex w-full justify-start items-center mt-28">
         {tourPackage.subTour.map((subTour, index) => {
           return (
-            <section id={subTour.slug.current} className="w-10/12 lg:w-11/12">
+            <section
+              key={index}
+              id={subTour.slug.current}
+              className="w-10/12 lg:w-11/12"
+            >
               <header className="flex flex-col gap-5 mb-20">
                 <h2 className="uppercase font-bold text-3xl text-supper-main-color">
                   Package {index + 1}
@@ -66,7 +70,7 @@ function Index({ tourPackage, randomNumberIcon }) {
                 </h3>
                 <table className="flex flex-col justify-start items-center">
                   <tbody>
-                    {subTour.schedule.map((list) => {
+                    {subTour.schedule.map((list, index) => {
                       const date = new Date(list.time);
                       const formattedTime = date.toLocaleTimeString("en-US", {
                         hour: "numeric",
@@ -75,6 +79,7 @@ function Index({ tourPackage, randomNumberIcon }) {
                       });
                       return (
                         <tr
+                          key={index}
                           className="flex w-full justify-start tems-center flex-col md:flex-row
                          mb-10 gap-3 md:gap-10 hover:ring-2 ring-white rounded-xl p-1 "
                         >
@@ -115,9 +120,10 @@ function Index({ tourPackage, randomNumberIcon }) {
                     RATE/PERSON
                   </h3>
                   <div className="flex gap-5 w-80 md:w-[40rem] lg:w-[60rem]  p-5 overflow-x-auto ">
-                    {subTour.price.map((price) => {
+                    {subTour.price.map((price, index) => {
                       return (
                         <button
+                          key={index}
                           className=" flex-none w-40 h-40 bg-main-color hover:scale-110 transition duration-150 active:ring-4 ring-supper-main-color rounded-lg 
                         text-center flex flex-col justify-around items-center"
                         >
