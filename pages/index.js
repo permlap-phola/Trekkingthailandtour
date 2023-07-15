@@ -13,6 +13,7 @@ import TheLine from "@/components/svg/line";
 import { sanityClient } from "@/sanity";
 import { PortableText } from "@portabletext/react";
 import { useRouter } from "next/router";
+import Script from "next/script";
 export default function Home({ feedbacks }) {
   const router = useRouter();
   const [trigger, setTrigger] = useState(false);
