@@ -26,6 +26,31 @@ export default function Home({ feedbacks }) {
     <div>
       <Head>
         <title>TREKKING THAILAND TOUR</title>
+        <meta
+          name="description"
+          content="Trekking Thailand Tour -    has been established with love and passion for nature , wildlife, and the beauty of the various Thai local ways of lives. Our experienced tour guides, specialized in each branch of nature, are ready to take you to explore the esthetic touch of Thai nature. คืดถึงเที่ยวที่เขาใหญ่ คิดถึง Trekking Thailand Tour"
+        />
+        <meta
+          name="keywords"
+          content="Khao Yai tours, Thailand travel, Wildlife tours, Animal encounters, 
+          Khao Yai national park, Eco-tours, Jungle safaris, Wildlife photography, Birdwatching, 
+          Elephant encounters, Wildlife sanctuaries, Bat caves, Night safaris, Bird species in Khao Yai,
+          Flora and fauna of Khao Yai, Khao Yai wildlife habitats, Cultural immersion,
+          Local traditions, Indigenous communities, Traditional arts and crafts, Thai cultural performances,
+          Temple visits, Meditation retreats, Thai cooking classes, Traditional Thai massage, Nature exploration,
+          Rural villages, Local cuisine, Vineyards and wineries, Waterfalls and natural pools, 
+          Adventure activities, Jungle lodges, Wildlife conservation, Nature conservation, Guided hikes, 
+          Authentic experiences, Local markets and shopping."
+        />
+        <meta property="og:title" content="TREKKING THAILAND TOUR" />
+        <meta property="og:type" content="website" />
+        <meta
+          property="og:description"
+          content="Trekking Thailand Tour -    has been established with love and passion for nature , wildlife, and the beauty of the various Thai local ways of lives. Our experienced tour guides, specialized in each branch of nature, are ready to take you to explore the esthetic touch of Thai nature. คืดถึงเที่ยวที่เขาใหญ่ คิดถึง Trekking Thailand Tour"
+        />
+        <meta property="og:image" content="/image/thumbnail/image.jpg" />
+        <meta property="og:url" content="https://trekkingthailandtour.com" />
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
       <Navbar />
       <div className="hidden md:block">
