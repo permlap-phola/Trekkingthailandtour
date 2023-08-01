@@ -2,7 +2,7 @@ import Navbar from "@/components/navbar/navbar";
 import Image from "next/image";
 import { Parallax, ParallaxLayer } from "@react-spring/parallax";
 import Footer from "@/components/footer/footer";
-import { Pagination } from "swiper/modules";
+import { Pagination, Autoplay } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
@@ -14,7 +14,21 @@ import { sanityClient } from "@/sanity";
 import { PortableText } from "@portabletext/react";
 import { useRouter } from "next/router";
 import Link from "next/link";
-
+import { TypeAnimation } from "react-type-animation";
+const stylesComputer = {
+  fontFamily: "Poppins",
+  width: "100%",
+  fontWeight: "bold",
+  fontSize: "3rem", // Font size for mobile devices
+  color: "#41644A",
+};
+const stylesMobile = {
+  fontFamily: "Poppins",
+  width: "100%",
+  fontWeight: "bold",
+  fontSize: "2rem", // Font size for mobile devices
+  color: "#41644A",
+};
 export default function Home({ feedbacks }) {
   const router = useRouter();
   const [trigger, setTrigger] = useState(false);
@@ -56,22 +70,37 @@ export default function Home({ feedbacks }) {
       </Head>
       <Navbar />
       <div className="hidden md:block">
-        <div className="absolute right-0 z-40 top-40">
+        <div className="absolute right-0 z-40 lg:top-96 xl:top-40">
           <TheLine />
         </div>
         <header
           className=" w-full md:h-[40rem] lg:h-screen relative
-       bg-[url('/image/hero-flip-background.jpg')] overflow-hidden flex justify-start items-end bg-cover
+       bg-[url('/image/hero-flip-background.jpg')]  overflow-hidden flex justify-start items-end bg-cover
         bg-[left_calc(50%)_top_calc(20%)]
        "
         >
           <XyzTransitionGroup className="item-group" xyz="fade-50% down-2">
             {trigger && (
-              <div className="lg:w-5/12 md:w-7/12 md:relative md:z-40 flex items-start justify-center mb-40 square">
+              <div className="xl:w-5/12 lg:w-7/12 md:w-8/12 md:relative md:z-50 flex items-start justify-center mb-40 square">
                 <div className=" w-full p-5 flex flex-col">
-                  <span className="font-Poppins w-full font-bold md:text-3xl lg:text-6xl text-second-color">
+                  {/* <span className="font-Poppins w-full font-bold md:text-3xl lg:text-6xl text-second-color">
                     Love and Passion for Nature
-                  </span>
+                  </span> */}
+                  <TypeAnimation
+                    sequence={[
+                      // Same substring at the start will only be typed out once, initially
+                      "Love and Passion for Nature",
+                      1000, // wait 1s before replacing "Mice" with "Hamsters"
+                      "Love and Passion for Wild Animals",
+                      1000,
+                      "Love and Passion for Trekking",
+                      1000,
+                    ]}
+                    wrapper="span"
+                    speed={50}
+                    style={stylesComputer}
+                    repeat={Infinity}
+                  />
                   <span className="font-Poppins font-semibold text-xl md:text-main-color lg:text-supper-main-color uppercase">
                     Trekking Thailand Tour
                   </span>
@@ -86,7 +115,7 @@ export default function Home({ feedbacks }) {
               </div>
             )}
           </XyzTransitionGroup>
-          <div className="lg:w-[90rem] md:w-96 h-full absolute -bottom-5 right-0 z-40  ">
+          <div className="lg:w-[90rem] md:w-96 h-full absolute md:right-0 2xl:-bottom-5 2xl:right-0 z-40  ">
             <Image src="/image/hero-flip.png" fill className="object-cover" />
           </div>
         </header>
@@ -211,8 +240,16 @@ export default function Home({ feedbacks }) {
               What people say about us
             </h2>
             <Swiper
-              pagination={true}
-              modules={[Pagination]}
+              spaceBetween={30}
+              centeredSlides={true}
+              autoplay={{
+                delay: 2500,
+                disableOnInteraction: false,
+              }}
+              pagination={{
+                clickable: true,
+              }}
+              modules={[Autoplay, Pagination]}
               className="w-full md:h-max lg:h-max  mt-5 "
             >
               {feedbacks.map((feedback, index) => {
@@ -294,9 +331,21 @@ export default function Home({ feedbacks }) {
           <div>
             <div className="w-full h-ful   flex items-start justify-center">
               <div className=" w-full p-5 flex flex-col">
-                <span className="font-Poppins w-11/12 font-bold text-3xl text-second-color">
-                  Love and Passion for Nature
-                </span>
+                <TypeAnimation
+                  sequence={[
+                    // Same substring at the start will only be typed out once, initially
+                    "Love and Passion for Nature",
+                    1000, // wait 1s before replacing "Mice" with "Hamsters"
+                    "Love and Passion for Wild Animals",
+                    1000,
+                    "Love and Passion for Trekking",
+                    1000,
+                  ]}
+                  wrapper="span"
+                  speed={50}
+                  style={stylesMobile}
+                  repeat={Infinity}
+                />
                 <span className="font-Poppins font-semibold text-lg text-main-color">
                   Trekking Thailand Tour
                 </span>
@@ -439,8 +488,17 @@ export default function Home({ feedbacks }) {
                 What people say about us
               </h2>
               <Swiper
-                pagination={true}
-                modules={[Pagination]}
+                spaceBetween={30}
+                centeredSlides={true}
+                autoplay={{
+                  delay: 2500,
+                  disableOnInteraction: false,
+                }}
+                pagination={{
+                  clickable: true,
+                }}
+                navigation={true}
+                modules={[Autoplay, Pagination]}
                 className="w-full h-max  "
               >
                 {feedbacks.map((feedback, index) => {
