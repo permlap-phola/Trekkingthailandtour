@@ -8,6 +8,7 @@ import { useRouter } from "next/router";
 function Navbar() {
   const [activeMenu, setActivemenu] = useState(false);
   const router = useRouter();
+
   const handleTriggerMenu = () => {
     setActivemenu(() => !activeMenu);
     if (activeMenu === true) {
@@ -17,7 +18,7 @@ function Navbar() {
     }
   };
   return (
-    <nav className=" top-5 w-full fixed z-50   ">
+    <nav className=" top-5 w-full fixed z-50 font-Poppins   ">
       {/* Phone navbar */}
       <ul className="pl-0 md:hidden list-none flex justify-between font-Poppins z-20 ">
         <li
@@ -104,12 +105,12 @@ function Navbar() {
             })
           }
           role="button"
-          className={`ml-3 w-56 pr-3  gap-2 h-10 ring-2 bg-main-color ring-main-color flex-row
+          className={`ml-3 w-56 pr-3  gap-2 h-10 ring-2 hover:bg-supper-main-color bg-main-color ring-main-color flex-row
          rounded-full overflow-hidden drop-shadow-md relative flex justify-between items-center text-third-color`}
         >
           <div
             className={`
-             translate-x-0 ring-main-color 
+             translate-x-0 ring-main-color  
             transition duration-150 w-10 h-10 rounded-full overflow-hidden relative  ring-2 `}
           >
             <Image
@@ -130,8 +131,10 @@ function Navbar() {
               })
             }
             role="button"
-            className=" bg-white lg:px-10 md:px-5 py-2 active:ring-main-color active:ring-2
-         font-medium text-main-color rounded-md drop-shadow-md"
+            className={`  ${
+              router.route === "/package" ? "bg-supper-main-color" : "bg-white"
+            } lg:px-10 md:px-5 hover:ring-2 py-2 ring-main-color font font-semibold active:ring-main-color active:ring-4
+          text-main-color rounded-md drop-shadow-md`}
           >
             Package
           </li>
