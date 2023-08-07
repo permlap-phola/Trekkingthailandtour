@@ -20,6 +20,11 @@ export default defineType({
       title: 'price',
       type: 'number',
     }),
+    defineField({
+      name: 'people',
+      title: 'people',
+      type: 'number',
+    }),
   ],
   preview: {
     select: {

@@ -4,12 +4,15 @@ import Facebook from "../contact-logo/facebook";
 import Line from "../contact-logo/line";
 import Phone from "../contact-logo/phone";
 import { useRouter } from "next/router";
+import { BiSolidUser } from "react-icons/bi";
+import AuthButton from "../auth/auth-button";
 
 function Navbar() {
   const [activeMenu, setActivemenu] = useState(false);
   const router = useRouter();
 
   const handleTriggerMenu = () => {
+    document.body.style.overflow = "auto";
     setActivemenu(() => !activeMenu);
     if (activeMenu === true) {
       document.body.style.overflow = "hidden";
@@ -18,9 +21,9 @@ function Navbar() {
     }
   };
   return (
-    <nav className=" top-5 w-full fixed z-50 font-Poppins   ">
+    <nav className="  w-full sticky z-[60] top-0 font-Poppins    ">
       {/* Phone navbar */}
-      <ul className="pl-0 md:hidden list-none flex justify-between font-Poppins z-20 ">
+      <ul className="pl-0 py-5 md:hidden list-none flex justify-between font-Poppins z-20 ">
         <li
           role="button"
           onClick={handleTriggerMenu}
@@ -70,6 +73,9 @@ function Navbar() {
           activeMenu ? "translate-y-0" : "-translate-y-[60rem]"
         } `}
       >
+        <div>
+          <AuthButton />
+        </div>
         <button
           onClick={() => {
             router.push({
@@ -97,7 +103,7 @@ function Navbar() {
       </div>
 
       {/* Desktop view */}
-      <ul className="hidden md:flex justify-center gap-10 pl-0 list-none ">
+      <ul className="hidden md:flex items-center bg-third-color/25 backdrop-blur-sm py-5 justify-center gap-10 pl-0 list-none ">
         <li
           onClick={() =>
             router.push({
@@ -105,7 +111,7 @@ function Navbar() {
             })
           }
           role="button"
-          className={`ml-3 w-56 pr-3  gap-2 h-10 ring-2 hover:bg-supper-main-color bg-main-color ring-main-color flex-row
+          className={`ml-3 w-56 pr-3   gap-2 h-10 ring-2 hover:bg-supper-main-color bg-main-color ring-main-color flex-row
          rounded-full overflow-hidden drop-shadow-md relative flex justify-between items-center text-third-color`}
         >
           <div
@@ -133,10 +139,14 @@ function Navbar() {
             role="button"
             className={`  ${
               router.route === "/package" ? "bg-supper-main-color" : "bg-white"
-            } lg:px-10 md:px-5 hover:ring-2 py-2 ring-main-color font font-semibold active:ring-main-color active:ring-4
+            } lg:px-10 md:px-5 hover:ring-2 py-2 ring-main-color flex items-center justify-center  font font-semibold active:ring-main-color active:ring-4
           text-main-color rounded-md drop-shadow-md`}
           >
             Package
+          </li>
+
+          <li>
+            <AuthButton />
           </li>
         </ul>
       </ul>

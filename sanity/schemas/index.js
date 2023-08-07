@@ -5,6 +5,7 @@ import feedback from './feedback'
 import subTourDetail from './subTourDetail'
 import schedule from './schedule'
 import price from './price'
+import images from './images'
 
 export const schemaTypes = [
   blockContent,
@@ -14,4 +15,5 @@ export const schemaTypes = [
   subTourDetail,
   schedule,
   price,
+  images,
 ]
