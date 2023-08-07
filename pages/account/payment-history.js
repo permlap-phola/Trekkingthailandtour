@@ -75,7 +75,7 @@ function PaymentHistory({ user, error }) {
                 </tr>
               </thead>
               <tbody>
-                {payments?.data?.payments.map((payment, index) => {
+                {payments?.data?.payments?.map((payment, index) => {
                   const date = new Date(payment.createAt);
                   const formattedDate = date.toLocaleDateString("en-US", {
                     day: "2-digit",
