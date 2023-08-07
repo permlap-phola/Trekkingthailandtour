@@ -13,14 +13,15 @@ import { useState } from "react";
 
 function PaymentHistory({ user, error }) {
   const [page, setPage] = useState(1);
-  if (error?.statusCode === 401) {
-    return <Unauthorized />;
-  }
   const payments = useQuery(
     ["payments-history", page],
     () => GetAllPayment({ page: page }),
     { keepPreviousData: true }
   );
+  if (error?.statusCode === 401) {
+    return <Unauthorized />;
+  }
+
   return (
     <div className="bg-third-color">
       <Head>

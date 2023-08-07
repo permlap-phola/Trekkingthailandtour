@@ -90,9 +90,12 @@ function Index({ tourPackage, randomNumberIcon, user }) {
                   <PortableText value={subTour.description} />
                 </div>
                 <div className="w-full  grid grid-cols-3 lg:grid-cols-6 ">
-                  {subTour.images.map((image) => {
+                  {subTour.images.map((image, index) => {
                     return (
-                      <div className="bg-main-color  w-full h-20 lg:w-40 lg:h-40 relative">
+                      <div
+                        key={index}
+                        className="bg-main-color  w-full h-20 lg:w-40 lg:h-40 relative"
+                      >
                         <Image
                           src={image?.coverImage?.asset?.url}
                           fill
