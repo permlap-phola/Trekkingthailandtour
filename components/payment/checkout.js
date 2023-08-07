@@ -10,7 +10,7 @@ function Checkout({ setTiggerCheckOut, selectTour }) {
   const [loading, setLoading] = useState(false);
   const [people, setPeople] = useState(1);
   const [fullPrice, setFullPrice] = useState(selectTour.price[0].price);
-  const [deposit, setDeposit] = useState(selectTour.price[0].price * 0.3);
+  const [deposit, setDeposit] = useState(selectTour.price[0].price * 0.15);
 
   const handleOnChangePrice = (e) => {
     const { name, value } = e.target;
@@ -18,13 +18,13 @@ function Checkout({ setTiggerCheckOut, selectTour }) {
     setPeople(() => value);
     for (let i = 1; i <= selectTour.price.length; i++) {
       if (people === i) {
-        const deposit = selectTour.price[i - 1].price * people * 0.3;
+        const deposit = selectTour.price[i - 1].price * people * 0.15;
         const fullPrice = selectTour.price[i - 1].price * people;
         setFullPrice(() => selectTour.price[i - 1].price * people);
-        setDeposit(() => selectTour.price[i - 1].price * people * 0.3);
+        setDeposit(() => selectTour.price[i - 1].price * people * 0.15);
       } else if (people > selectTour.price.length) {
         const deposit =
-          selectTour.price[selectTour.price.length - 1].price * people * 0.3;
+          selectTour.price[selectTour.price.length - 1].price * people * 0.15;
         const fullPrice =
           selectTour.price[selectTour.price.length - 1].price * people;
         setFullPrice(
@@ -32,7 +32,7 @@ function Checkout({ setTiggerCheckOut, selectTour }) {
         );
         setDeposit(
           () =>
-            selectTour.price[selectTour.price.length - 1].price * people * 0.3
+            selectTour.price[selectTour.price.length - 1].price * people * 0.15
         );
       }
     }
@@ -91,7 +91,7 @@ function Checkout({ setTiggerCheckOut, selectTour }) {
             <span className="font-bold text-supper-main-color">
               {deposit.toLocaleString()}{" "}
             </span>
-            baht (30% of the total price) to secure your booking. The remaining
+            baht (15% of the total price) to secure your booking. The remaining
             amount can be settled at the start of the tour. The full package
             price is {fullPrice.toLocaleString()} baht for {people} people.
           </span>
