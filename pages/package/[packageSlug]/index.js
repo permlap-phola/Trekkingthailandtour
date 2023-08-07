@@ -1,8 +1,15 @@
+import AuthButton from "@/components/auth/auth-button";
 import Footer from "@/components/footer/footer";
 import Navbar from "@/components/navbar/navbar";
+import Checkout from "@/components/payment/checkout";
 import { sanityClient } from "@/sanity";
+import { GetUserCookie } from "@/services/user";
 import { PortableText } from "@portabletext/react";
+import Head from "next/head";
+import Image from "next/image";
+import { parseCookies } from "nookies";
 import React from "react";
+import { useState } from "react";
 import { AiFillStar } from "react-icons/ai";
 import { FaMountainCity } from "react-icons/fa6";
 import { GiMountains } from "react-icons/gi";
@@ -18,11 +25,30 @@ const packageData = [
   },
 ];
 
-function Index({ tourPackage, randomNumberIcon }) {
+function Index({ tourPackage, randomNumberIcon, user }) {
+  const [tiggerCheckOut, setTiggerCheckOut] = useState(false);
+  const [selectTour, setSelectTour] = useState({
+    title: "",
+    description: "",
+    price: 0,
+    people: 0,
+    images: [],
+  });
   return (
     <div className="bg-third-color w-full h-full font-Poppins">
-      <header className="pt-40">
-        <Navbar />
+      <Head>
+        <title>{tourPackage.title}</title>
+      </Head>
+      {tiggerCheckOut && (
+        <Checkout
+          selectTour={selectTour}
+          setTiggerCheckOut={setTiggerCheckOut}
+        />
+      )}
+
+      <Navbar />
+
+      <header className="mt-20 md:pt-20">
         <section className="flex  flex-col justify-center items-center w-full">
           <div className="w-10/12 md:w-11/12 lg:w-9/12 flex flex-col gap-5 justify-center items-center text-center">
             <h5 className="text-xs md:text-xl md:hidden lg:block font-normal">
@@ -51,9 +77,9 @@ function Index({ tourPackage, randomNumberIcon }) {
             <section
               key={index}
               id={subTour.slug.current}
-              className="w-10/12 lg:w-11/12"
+              className="w-full lg:w-full flex flex-col items-center"
             >
-              <header className="flex flex-col gap-5 mb-20">
+              <header className="flex flex-col gap-5 mb-20 w-10/12">
                 <h2 className="uppercase font-bold text-3xl text-supper-main-color">
                   Package {index + 1}
                 </h2>
@@ -62,6 +88,26 @@ function Index({ tourPackage, randomNumberIcon }) {
                 </h3>
                 <div className="w-full text-main-color font-normal text-sm lg:text-base">
                   <PortableText value={subTour.description} />
+                </div>
+                <div className="w-full  grid grid-cols-3 lg:grid-cols-6 ">
+                  {subTour.images.map((image) => {
+                    return (
+                      <div className="bg-main-color  w-full h-20 lg:w-40 lg:h-40 relative">
+                        <Image
+                          src={image?.coverImage?.asset?.url}
+                          fill
+                          className="object-cover transition duration-300 group-hover:scale-110 "
+                          placeholder="blur"
+                          sizes="(max-width: 768px) 100vw, 700px"
+                          blurDataURL={image?.coverImage?.asset?.metadata?.lqip}
+                          alt={
+                            image?.coverImage?.title +
+                            "At TREKKING THAILAND TOUR"
+                          }
+                        />
+                      </div>
+                    );
+                  })}
                 </div>
               </header>
               <main className="flex flex-col w-12/12 gap-10 justify-start items-center">
@@ -81,7 +127,7 @@ function Index({ tourPackage, randomNumberIcon }) {
                         <tr
                           key={index}
                           className="flex w-full justify-start tems-center flex-col md:flex-row
-                         mb-10 gap-3 md:gap-10 hover:ring-2 ring-white rounded-xl p-1 "
+                         md:mb-10 mb-1 gap-3 md:gap-10 hover:scale-110 transition duration-150  rounded-xl p-1 "
                         >
                           <td
                             className={`flex items-center p-2 text-center text-sm font-bold   text-black justify-center`}
@@ -119,12 +165,12 @@ function Index({ tourPackage, randomNumberIcon }) {
                   <h3 className="w-max h-max p-3 bg-second-color text-white">
                     RATE/PERSON
                   </h3>
-                  <div className="flex gap-5 w-80 md:w-[40rem] lg:w-[60rem]  p-5 overflow-x-auto ">
+                  <div className=" gap-5 w-full md:w-11/12 grid grid-cols-2 md:grid-cols-6 mt-5  md:p-5 ">
                     {subTour.price.map((price, index) => {
                       return (
-                        <button
+                        <div
                           key={index}
-                          className=" flex-none w-40 h-40 bg-main-color hover:scale-110 transition duration-150 active:ring-4 ring-supper-main-color rounded-lg 
+                          className=" flex-none w-40 h-40 bg-main-color  rounded-lg 
                         text-center flex flex-col justify-around items-center"
                         >
                           <span className="text-white font-normal">
@@ -134,16 +180,46 @@ function Index({ tourPackage, randomNumberIcon }) {
                             {price.price.toLocaleString("en-US")}
                           </span>
                           <span className="text-white font-normal">THB</span>
-                        </button>
+                        </div>
                       );
                     })}
                   </div>
                 </section>
               </main>
-              <footer className="w-full flex justify-center mt-10 mb-60">
-                <button className="w-max text-white bg-supper-main-color px-8 py-3 rounded-lg font-bold drop-shadow-md hover:scale-110 transition duration-150">
-                  BUY NOW
-                </button>
+              <footer
+                className="w-full flex items-center bg-main-color/60  sticky bottom-0 py-5
+                justify-center mt-10 mb-40 gap-2 md:gap-5"
+              >
+                <h3 className="md:font-semibold font-medium  text-white text-xs max-w-4xl w-40 md:w-max lg:text-xl uppercase">
+                  {subTour.title}
+                </h3>
+                {user ? (
+                  <button
+                    onClick={() => {
+                      setSelectTour(() => {
+                        return {
+                          title: subTour.title,
+                          description: subTour.description,
+                          price: subTour.price,
+                          images: subTour.images,
+                        };
+                      });
+                      setTiggerCheckOut(() => true);
+                      document.body.style.overflow = "hidden";
+                    }}
+                    className="w-max text-white bg-supper-main-color px-8 py-3
+                   rounded-lg text-xs md:text-lg font-bold drop-shadow-md hover:scale-110 transition duration-150"
+                  >
+                    BUY NOW
+                  </button>
+                ) : (
+                  <div className="flex flex-col gap-2 justify-center items-center">
+                    <AuthButton />
+                    <span className="text-xs w-28 text-center text-white">
+                      please login first before buying
+                    </span>
+                  </div>
+                )}
               </footer>
             </section>
           );
@@ -159,18 +235,35 @@ function Index({ tourPackage, randomNumberIcon }) {
 export default Index;
 
 export async function getServerSideProps(context) {
+  const cookies = parseCookies(context);
+  const accessToken = cookies.access_token;
+  const userData = await GetUserCookie({
+    access_token: accessToken,
+  }).catch((err) => console.log(err));
+
   const packageSlug = await context.params.packageSlug;
   const query = `*[_type == "package-tour-detail" && slug.current == "${packageSlug}"]{
     _id,
     title,
     slug,
     description,
+   
     "subTour": subTour[] ->{
+  
+    "images": images[]->{
+    coverImage{
+     asset->{
+         url,
+        metadata
+         }
+      },
+        },
     description,
     title,
     slug,
     "price": price[]->{
       _id,
+      people,
       title,
       description,
       price,
@@ -190,6 +283,7 @@ export async function getServerSideProps(context) {
     props: {
       tourPackage: tourPackage[0],
       randomNumberIcon,
+      user: userData ? userData.data : null,
     },
   };
 }

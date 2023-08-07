@@ -32,9 +32,9 @@ function Index({ tours }) {
       <Head>
         <title>Package tours</title>
       </Head>
-      <header>
-        <Navbar />
-      </header>
+
+      <Navbar />
+
       <main className="pt-28">
         <section className="w-full h-max flex flex-col justify-start items-center">
           <div className="uppercase font-Poppins text-center ">
@@ -100,10 +100,15 @@ function Index({ tours }) {
                         </span>
                         <span className="text-3xl text-white">PACKAGES</span>
                         <button
+                          onClick={() =>
+                            router.push({
+                              pathname: `/package/${tour.slug.current}`,
+                            })
+                          }
                           className="w-max px-10 py-2 rounded-xl bg-supper-main-color text-sm font-semibold transition duration-150 hover:ring-2 ring-white
                          text-white hover:drop-shadow-lg"
                         >
-                          BUY NOW
+                          Check it Out
                         </button>
                       </div>
                       {tour?.coverImage?.asset?.url && (
