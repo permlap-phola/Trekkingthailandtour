@@ -71,3 +71,22 @@ export async function ForgetPasswordAPI({ email }) {
     throw new Error(err);
   }
 }
+
+export async function ConfirmResetPassword({ resetToken, password }) {
+  try {
+    const res = await axios.put(
+      `${process.env.NEXT_PUBLIC_SERVER_URL}/auth/reset-password`,
+      { resetToken, password },
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    return res.data;
+  } catch (err) {
+    console.log(err);
+    throw new Error(err);
+  }
+}

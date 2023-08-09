@@ -52,8 +52,7 @@ function Footer() {
           <ul className="text-white text-xs">
             <li>(+66) 0897190750 Guide BEER </li>
             <li>(+66) 0819978805 Guide LEK</li>
-            <li>Email : To.Be.Journey@gmail.com</li>
-            <li>Trekking.thailandtour@gmail.com</li>
+            <li>Email trekking.thailandtour@gmail.com</li>
             <li>ID LINE : Guide.beer</li>
           </ul>
         </div>
