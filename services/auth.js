@@ -51,3 +51,23 @@ export async function SignInAPI({ email, password }) {
     throw new Error(err);
   }
 }
+
+export async function ForgetPasswordAPI({ email }) {
+  try {
+    const forgetPassword = await axios.put(
+      `${process.env.NEXT_PUBLIC_SERVER_URL}/auth/forget-password`,
+      {
+        email,
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    return forgetPassword.data;
+  } catch (err) {
+    console.log(err);
+    throw new Error(err);
+  }
+}
