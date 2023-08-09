@@ -18,6 +18,7 @@ import { useState } from "react";
 import { SignInAPI } from "@/services/auth";
 import Loading from "@/components/status/loading";
 import Swal from "sweetalert2";
+import Head from "next/head";
 
 function Copyright(props) {
   return (
@@ -83,6 +84,9 @@ function SignIn() {
   };
   return (
     <ThemeProvider theme={defaultTheme}>
+      <Head>
+        <title>sign in</title>
+      </Head>
       <Navbar />
       <Grid container component="main" sx={{ height: "100vh" }}>
         <CssBaseline />
@@ -167,7 +171,7 @@ function SignIn() {
               )}
               <Grid container>
                 <Grid item xs>
-                  <Link href="#" variant="body2">
+                  <Link href="/auth/forget-password" variant="body2">
                     Forgot password?
                   </Link>
                 </Grid>

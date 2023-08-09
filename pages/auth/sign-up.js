@@ -19,6 +19,7 @@ import { SignUpAPI } from "@/services/auth";
 import Swal from "sweetalert2";
 import Loading from "@/components/status/loading";
 import { useRouter } from "next/router";
+import Head from "next/head";
 
 function Copyright(props) {
   return (
@@ -102,6 +103,9 @@ function SignUp() {
 
   return (
     <div className="bg-white h-screen">
+      <Head>
+        <title>sign in</title>
+      </Head>
       <ThemeProvider theme={defaultTheme}>
         <Navbar />
         <Container component="main" maxWidth="xs">

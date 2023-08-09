@@ -74,10 +74,10 @@ function AuthButton() {
          justify-center gap-5  font font-semibold active:ring-main-color active:ring-4
         text-main-color rounded-md drop-shadow-md bg-white"
       >
-        {data?.picture ? (
+        {data?.image ? (
           <div className="relative w-10 h-10 rounded-md  overflow-hidden">
             <Image
-              src={data?.picture}
+              src={data?.image}
               alt={data?.name}
               layout="fill"
               className=" object-cover "
@@ -139,7 +139,7 @@ function AuthButton() {
                   </span>
                 </li>
 
-                {/* <li
+                <li
                   onClick={() => {
                     router.push({
                       pathname: "/account/setting",
@@ -152,7 +152,7 @@ function AuthButton() {
                   <span className="text-center flex items-center justify-center group-hover:scale-110 transition duration-150">
                     <BiUser />
                   </span>
-                </li> */}
+                </li>
                 <div className="arrow-left md:arrow-top absolute -left-3 top-auto bottom-auto"></div>
                 <li
                   onClick={signOut}
