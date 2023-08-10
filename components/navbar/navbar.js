@@ -6,11 +6,14 @@ import Phone from "../contact-logo/phone";
 import { useRouter } from "next/router";
 import { BiSolidUser } from "react-icons/bi";
 import AuthButton from "../auth/auth-button";
+import { MdAdminPanelSettings } from "react-icons/md";
+import { useQuery } from "@tanstack/react-query";
+import { GetUser } from "@/services/user";
 
 function Navbar() {
   const [activeMenu, setActivemenu] = useState(false);
   const router = useRouter();
-
+  const user = useQuery(["user"], () => GetUser());
   const handleTriggerMenu = () => {
     document.body.style.overflow = "auto";
     setActivemenu(() => !activeMenu);
@@ -100,6 +103,24 @@ function Navbar() {
         >
           Package
         </button>
+        {user?.data?.role === "admin" && (
+          <button
+            onClick={() =>
+              router.push({
+                pathname: "/admin",
+              })
+            }
+            className={`  ${
+              router.route === "/package" ? "bg-supper-main-color" : "bg-white"
+            } lg:px-10 md:px-5 hover:ring-2  py-2 ring-main-color px-2 flex items-center justify-center  font font-semibold active:ring-main-color active:ring-4
+          text-main-color rounded-md drop-shadow-md`}
+          >
+            <div className="flex items-center justify-center text-2xl">
+              <MdAdminPanelSettings />
+            </div>
+            Admin
+          </button>
+        )}
       </div>
 
       {/* Desktop view */}
@@ -148,6 +169,27 @@ function Navbar() {
           <li>
             <AuthButton />
           </li>
+          {user?.data?.role === "admin" && (
+            <li
+              onClick={() =>
+                router.push({
+                  pathname: "/admin",
+                })
+              }
+              role="button"
+              className={`  ${
+                router.route === "/package"
+                  ? "bg-supper-main-color"
+                  : "bg-white"
+              } lg:px-10 md:px-5 hover:ring-2  py-2 ring-main-color flex items-center justify-center  font font-semibold active:ring-main-color active:ring-4
+          text-main-color rounded-md drop-shadow-md`}
+            >
+              <div className="flex items-center justify-center text-2xl">
+                <MdAdminPanelSettings />
+              </div>
+              Admin
+            </li>
+          )}
         </ul>
       </ul>
     </nav>
