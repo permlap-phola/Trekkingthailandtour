@@ -111,7 +111,7 @@ function Navbar() {
               })
             }
             className={`  ${
-              router.route === "/package" ? "bg-supper-main-color" : "bg-white"
+              router.route === "/admin" ? "bg-supper-main-color" : "bg-white"
             } lg:px-10 md:px-5 hover:ring-2  py-2 ring-main-color px-2 flex items-center justify-center  font font-semibold active:ring-main-color active:ring-4
           text-main-color rounded-md drop-shadow-md`}
           >
@@ -178,9 +178,7 @@ function Navbar() {
               }
               role="button"
               className={`  ${
-                router.route === "/package"
-                  ? "bg-supper-main-color"
-                  : "bg-white"
+                router.route === "/admin" ? "bg-supper-main-color" : "bg-white"
               } lg:px-10 md:px-5 hover:ring-2  py-2 ring-main-color flex items-center justify-center  font font-semibold active:ring-main-color active:ring-4
           text-main-color rounded-md drop-shadow-md`}
             >
