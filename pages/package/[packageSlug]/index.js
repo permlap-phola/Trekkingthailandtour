@@ -73,6 +73,10 @@ function Index({ tourPackage, randomNumberIcon, user }) {
       </header>
       <main className="flex-col flex w-full justify-start items-center mt-28">
         {tourPackage.subTour.map((subTour, index) => {
+          const sortedPrices = subTour?.price
+            .slice()
+            .sort((a, b) => a.price - b.price);
+          console.log(sortedPrices);
           return (
             <section
               key={index}
@@ -169,7 +173,7 @@ function Index({ tourPackage, randomNumberIcon, user }) {
                     RATE/PERSON
                   </h3>
                   <div className=" gap-5 w-full md:w-11/12 grid grid-cols-2 md:grid-cols-6 mt-5  md:p-5 ">
-                    {subTour.price.map((price, index) => {
+                    {sortedPrices?.map((price, index) => {
                       return (
                         <div
                           key={index}
