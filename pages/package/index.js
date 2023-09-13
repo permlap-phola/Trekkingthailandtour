@@ -13,6 +13,7 @@ import Image from "next/image";
 import { sanityClient, urlFor } from "@/sanity";
 import { PortableText } from "@portabletext/react";
 import { useRouter } from "next/router";
+import Link from "next/link";
 const packageData = [
   {
     icon: <GiMountains />,
@@ -99,17 +100,13 @@ function Index({ tours }) {
                           {tour.subTour?.length}
                         </span>
                         <span className="text-3xl text-white">PACKAGES</span>
-                        <button
-                          onClick={() =>
-                            router.push({
-                              pathname: `/package/${tour.slug.current}`,
-                            })
-                          }
+                        <Link
+                          href={`/package/${tour.slug.current}`}
                           className="w-max px-10 py-2 rounded-xl bg-supper-main-color text-sm font-semibold transition duration-150 hover:ring-2 ring-white
                          text-white hover:drop-shadow-lg"
                         >
                           Check it Out
-                        </button>
+                        </Link>
                       </div>
                       {tour?.coverImage?.asset?.url && (
                         <div className="w-full h-40 bg-slate-400 relative">
@@ -128,33 +125,24 @@ function Index({ tours }) {
                         </span>
                         {tour.subTour?.map((list, index) => {
                           return (
-                            <li
-                              onClick={() =>
-                                router.push({
-                                  pathname: `/package/${tour.slug.current}`,
-                                  hash: `#${list.slug.current}`,
-                                })
-                              }
+                            <Link
+                              href={`/package/${tour.slug.current}#${list.slug.current}`}
                               key={index}
                               className="text-xs text-white font-light flex gap-2 items-center hover:font-medium cursor-pointer"
                             >
                               <div className="w-2 h-2 rounded-full bg-supper-main-color"></div>
                               {list.title}
-                            </li>
+                            </Link>
                           );
                         })}
                       </ul>
-                      <button
-                        onClick={() =>
-                          router.push({
-                            pathname: `/package/${tour.slug.current}`,
-                          })
-                        }
+                      <Link
+                        href={`/package/${tour.slug.current}`}
                         className="w-full py-2 text-center text-white font-semibold bg-main-color hover:bg-supper-main-color transition duration-150
                        uppercase"
                       >
                         See all details
-                      </button>
+                      </Link>
                     </div>
                   </div>
                 </SwiperSlide>
@@ -165,7 +153,7 @@ function Index({ tours }) {
         {tours.map((tour, index) => {
           return (
             <div key={index}>
-              <section
+              <div
                 className={`w-full flex justify-center md:justify-between ${
                   index % 2 === 0 ? "flex-row" : "flex-row-reverse"
                 }`}
@@ -183,17 +171,13 @@ function Index({ tours }) {
                     <PortableText value={tour.body} />
                   </div>
 
-                  <button
-                    onClick={() =>
-                      router.push({
-                        pathname: `/package/${tour.slug.current}`,
-                      })
-                    }
+                  <Link
+                    href={`/package/${tour.slug.current}`}
                     className="bg-supper-main-color px-7 py-2 md:px-10 md:py-2
                    rounded-lg text-white drop-shadow-md hover:ring-2 ring-white"
                   >
                     SEE ALL DETAIL
-                  </button>
+                  </Link>
                 </div>
                 <div className="w-5/12 h-96 hidden md:block  relative overflow-hidden group">
                   <Image
@@ -217,7 +201,7 @@ function Index({ tours }) {
                     </h6>
                   </div>
                 </div>
-              </section>
+              </div>
               <section className="w-full grid grid-cols-4 grid-rows-2 h-96">
                 <div className="bg-yellow-200 col-span-1 row-span-1 relative overflow-hidden group">
                   <Image
@@ -365,7 +349,7 @@ function Index({ tours }) {
 
 export default Index;
 
-export async function getServerSideProps(context) {
+export async function getStaticProps(context) {
   const query = `*[_type == "package-tour-detail"]{
     _id,
     title,

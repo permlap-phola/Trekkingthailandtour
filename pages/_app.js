@@ -7,6 +7,7 @@ import {
 } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { useState } from "react";
+import NextTopLoader from "nextjs-toploader";
 export default function App({ Component, pageProps }) {
   const [queryClient] = useState(() => new QueryClient());
 
@@ -23,6 +24,7 @@ export default function App({ Component, pageProps }) {
           gtag('config', 'G-ZNZ5QWEE8X');
         `}
         </Script>
+        <NextTopLoader showSpinner={false} color="#E86A33" />
         <Component {...pageProps} />
       </Hydrate>
       <ReactQueryDevtools />

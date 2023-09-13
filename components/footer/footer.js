@@ -41,8 +41,8 @@ function Footer() {
           <Facebook secondColor={true} />
         </a>
 
-        <Line secondColor={true} />
-        <Phone secondColor={true} />
+        {/* <Line secondColor={true} />
+        <Phone secondColor={true} /> */}
       </div>
       <div className="flex justify-between gap-5">
         <div>

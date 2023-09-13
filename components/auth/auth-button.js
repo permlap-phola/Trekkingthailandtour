@@ -16,7 +16,7 @@ function AuthButton() {
   const router = useRouter();
   const queryClient = useQueryClient();
 
-  const { isLoading, data, refetch, isFetching, isError } = useQuery(
+  const { isLoading, data, refetch, isFetching, isError, status } = useQuery(
     ["user"],
     () => GetUser(),
     {
@@ -25,20 +25,20 @@ function AuthButton() {
   );
 
   useEffect(() => {
-    if (router.query.access_token) {
+    if (router.query.access_token && router.isReady) {
       setCookie(null, "access_token", router.query.access_token, {
         maxAge: 30 * 24 * 60 * 60, // Cookie expiration time in seconds (e.g., 30 days)
         path: "/", // Cookie path (can be adjusted based on your needs)
       });
       refetch();
     }
-    refetch();
-  }, [router.query?.access_token, router.isReady]);
-  if (isFetching) {
+  }, [router?.query?.access_token, router.isReady]);
+
+  if (status === "loading") {
     return <Loading />;
   }
 
-  if (!data || data === "Unauthorized" || isError) {
+  if (status === "error") {
     return (
       <div>
         <button
@@ -79,7 +79,7 @@ function AuthButton() {
             <Image
               src={data?.image}
               alt={data?.name}
-              layout="fill"
+              fill
               className=" object-cover "
               sizes="(max-width: 768px) 100vw"
             />

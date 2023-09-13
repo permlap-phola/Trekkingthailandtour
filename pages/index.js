@@ -62,7 +62,7 @@ export default function Home({ feedbacks }) {
         <meta property="og:type" content="website" />
         <meta
           property="og:description"
-          content="Trekking Thailand Tour -    has been established with love and passion for nature , wildlife, and the beauty of the various Thai local ways of lives. Our experienced tour guides, specialized in each branch of nature, are ready to take you to explore the esthetic touch of Thai nature. คืดถึงเที่ยวที่เขาใหญ่ คิดถึง Trekking Thailand Tour"
+          content="Trekking Thailand Tour (Khao Yai tours) -    has been established with love and passion for nature , wildlife, and the beauty of the various Thai local ways of lives. Our experienced tour guides, specialized in each branch of nature, are ready to take you to explore the esthetic touch of Thai nature. คืดถึงเที่ยวที่เขาใหญ่ คิดถึง Trekking Thailand Tour"
         />
         <meta property="og:image" content="/image/thumbnail/image.jpg" />
         <meta property="og:url" content="https://trekkingthailandtour.com" />
@@ -83,9 +83,6 @@ export default function Home({ feedbacks }) {
             {trigger && (
               <div className="xl:w-5/12 lg:w-7/12 md:w-8/12 md:relative md:z-50 flex items-start justify-center mb-40 square">
                 <div className=" w-full p-5 flex flex-col">
-                  {/* <span className="font-Poppins w-full font-bold md:text-3xl lg:text-6xl text-second-color">
-                    Love and Passion for Nature
-                  </span> */}
                   <TypeAnimation
                     sequence={[
                       // Same substring at the start will only be typed out once, initially
@@ -101,10 +98,10 @@ export default function Home({ feedbacks }) {
                     style={stylesComputer}
                     repeat={Infinity}
                   />
-                  <span className="font-Poppins font-semibold text-xl md:text-main-color lg:text-supper-main-color uppercase">
+                  <span className="font-Poppins font-outline-2 font-semibold text-xl md:text-main-color lg:text-supper-main-color uppercase">
                     Trekking Thailand Tour
                   </span>
-                  <span className="font-Poppins font-normal text-sm text-main-color relative z-40">
+                  <span className="font-Poppins font-semibold text-base font-outline-2 text-main-color relative z-40">
                     has been established with love and passion for nature ,
                     wildlife, and the beauty of the various Thai local ways of
                     lives. Our experienced tour guides, specialized in each
@@ -216,16 +213,12 @@ export default function Home({ feedbacks }) {
                     Contact us
                   </button>
                 </Link>
-                <button
-                  onClick={() =>
-                    router.push({
-                      pathname: "/package",
-                    })
-                  }
-                  className="w-40 py-2 bg-white font-semibold rounded-xl text-supper-main-color drop-shadow-md hover:scale-110 transition duration-150"
+                <Link
+                  href={`/package`}
+                  className="w-40 py-2 text-center bg-white font-semibold rounded-xl text-supper-main-color drop-shadow-md hover:scale-110 transition duration-150"
                 >
                   See more
-                </button>
+                </Link>
               </div>
             </div>
             <div className="w-96 h-96 bg-slate-400 rounded-xl overflow-hidden ring-2 ring-white relative">
@@ -463,16 +456,12 @@ export default function Home({ feedbacks }) {
                   contact us
                 </button>
               </Link>
-              <button
-                onClick={() =>
-                  router.push({
-                    pathname: "/package",
-                  })
-                }
+              <Link
+                href={`/package`}
                 className="w-36 h-max font-semibold text-supper-main-color  text-lg p-2 drop-shadow-lg hover:ring-2 ring-supper-main-color active:ring-4 rounded-xl bg-white flex justify-center items-center"
               >
                 learn more
-              </button>
+              </Link>
             </div>
           </div>
         </ParallaxLayer>
@@ -562,7 +551,7 @@ export default function Home({ feedbacks }) {
   );
 }
 
-export async function getServerSideProps(ctx) {
+export async function getStaticProps(ctx) {
   const query = `*[_type == "feedback"]{
   publishedAt,
   mainImage{

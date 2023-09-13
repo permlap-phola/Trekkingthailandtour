@@ -19,3 +19,12 @@ html {
   filter: FlipH;
   -ms-filter: "FlipH";
 }
+
+@layer base {
+  .font-outline-2 {
+    -webkit-text-stroke: 0.3px white;
+  }
+  .font-outline-4 {
+    -webkit-text-stroke: 4px white;
+  }
+}

@@ -76,7 +76,7 @@ function Index({ tourPackage, randomNumberIcon, user }) {
           const sortedPrices = subTour?.price
             .slice()
             .sort((a, b) => a.price - b.price);
-          console.log(sortedPrices);
+
           return (
             <section
               key={index}
@@ -197,8 +197,8 @@ function Index({ tourPackage, randomNumberIcon, user }) {
                 className="w-full flex items-center bg-main-color/60  sticky bottom-0 py-5
                 justify-center mt-10 mb-40 gap-2 md:gap-5"
               >
-                <h3 className="md:font-semibold font-medium  text-white text-xs max-w-4xl w-40 md:w-max lg:text-xl uppercase">
-                  {subTour.title}
+                <h3 className="md:font-semibold font-medium  text-white text-xs max-w-4xl w-60 md:w-max lg:text-xl uppercase">
+                  {user ? subTour.title : "Please login first before buying"}
                 </h3>
                 {user ? (
                   <button
@@ -222,9 +222,6 @@ function Index({ tourPackage, randomNumberIcon, user }) {
                 ) : (
                   <div className="flex flex-col gap-2 justify-center items-center">
                     <AuthButton />
-                    <span className="text-xs w-28 text-center text-white">
-                      please login first before buying
-                    </span>
                   </div>
                 )}
               </footer>

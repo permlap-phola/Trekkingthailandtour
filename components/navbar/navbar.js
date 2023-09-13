@@ -9,6 +9,7 @@ import AuthButton from "../auth/auth-button";
 import { MdAdminPanelSettings } from "react-icons/md";
 import { useQuery } from "@tanstack/react-query";
 import { GetUser } from "@/services/user";
+import Link from "next/link";
 
 function Navbar() {
   const [activeMenu, setActivemenu] = useState(false);
@@ -17,9 +18,9 @@ function Navbar() {
   const handleTriggerMenu = () => {
     document.body.style.overflow = "auto";
     setActivemenu(() => !activeMenu);
-    if (activeMenu === true) {
+    if (activeMenu !== true) {
       document.body.style.overflow = "hidden";
-    } else if (activeMenu === false) {
+    } else if (activeMenu !== false) {
       document.body.style.overflow = "auto";
     }
   };
@@ -67,8 +68,8 @@ function Navbar() {
           >
             <Facebook />
           </a>
-          <Line />
-          <Phone />
+          {/* <Line />
+          <Phone /> */}
         </li>
       </ul>
       <div
@@ -79,37 +80,29 @@ function Navbar() {
         <div>
           <AuthButton />
         </div>
-        <button
+        <Link
+          href={`/`}
           onClick={() => {
-            router.push({
-              pathname: "/",
-            });
             setActivemenu(() => false);
           }}
           className=" bg-white px-10 py-2 active:ring-main-color active:ring-2
          font-medium text-main-color rounded-md drop-shadow-md"
         >
           Homepage
-        </button>
-        <button
+        </Link>
+        <Link
+          href={`/package`}
           onClick={() => {
-            router.push({
-              pathname: "/package",
-            });
             setActivemenu(() => false);
           }}
           className=" bg-white px-10 py-2 active:ring-main-color active:ring-2
          font-medium text-main-color rounded-md drop-shadow-md"
         >
           Package
-        </button>
+        </Link>
         {user?.data?.role === "admin" && (
-          <button
-            onClick={() =>
-              router.push({
-                pathname: "/admin",
-              })
-            }
+          <Link
+            href={`/admin`}
             className={`  ${
               router.route === "/admin" ? "bg-supper-main-color" : "bg-white"
             } lg:px-10 md:px-5 hover:ring-2  py-2 ring-main-color px-2 flex items-center justify-center  font font-semibold active:ring-main-color active:ring-4
@@ -119,19 +112,14 @@ function Navbar() {
               <MdAdminPanelSettings />
             </div>
             Admin
-          </button>
+          </Link>
         )}
       </div>
 
       {/* Desktop view */}
-      <ul className="hidden md:flex items-center bg-third-color/25 backdrop-blur-sm py-5 justify-center gap-10 pl-0 list-none ">
-        <li
-          onClick={() =>
-            router.push({
-              pathname: "/",
-            })
-          }
-          role="button"
+      <div className="hidden md:flex items-center bg-third-color/25 backdrop-blur-sm py-5 justify-center gap-10 pl-0 list-none ">
+        <Link
+          href={"/"}
           className={`ml-3 w-56 pr-3   gap-2 h-10 ring-2 hover:bg-supper-main-color bg-main-color ring-main-color flex-row
          rounded-full overflow-hidden drop-shadow-md relative flex justify-between items-center text-third-color`}
         >
@@ -149,34 +137,24 @@ function Navbar() {
           </div>
 
           <span className="text-xs font-semibold">TREKKING THAILAND TOUR</span>
-        </li>
+        </Link>
         <ul className="pl-0 mr-10 flex gap-10">
-          <li
-            onClick={() =>
-              router.push({
-                pathname: "/package",
-              })
-            }
-            role="button"
+          <Link
+            href={`/package`}
             className={`  ${
               router.route === "/package" ? "bg-supper-main-color" : "bg-white"
             } lg:px-10 md:px-5 hover:ring-2 py-2 ring-main-color flex items-center justify-center  font font-semibold active:ring-main-color active:ring-4
           text-main-color rounded-md drop-shadow-md`}
           >
             Package
-          </li>
+          </Link>
 
           <li>
             <AuthButton />
           </li>
           {user?.data?.role === "admin" && (
-            <li
-              onClick={() =>
-                router.push({
-                  pathname: "/admin",
-                })
-              }
-              role="button"
+            <Link
+              href={"/admin"}
               className={`  ${
                 router.route === "/admin" ? "bg-supper-main-color" : "bg-white"
               } lg:px-10 md:px-5 hover:ring-2  py-2 ring-main-color flex items-center justify-center  font font-semibold active:ring-main-color active:ring-4
@@ -186,10 +164,10 @@ function Navbar() {
                 <MdAdminPanelSettings />
               </div>
               Admin
-            </li>
+            </Link>
           )}
         </ul>
-      </ul>
+      </div>
     </nav>
   );
 }

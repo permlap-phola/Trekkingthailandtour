@@ -66,12 +66,11 @@ function SignIn() {
         email: signIndata.email,
         password: signIndata.password,
       });
-      setLoading(() => false);
-
       Swal.fire("SUCCESS", "Sign in has completed successfully", "success");
       router.push(`/?access_token=${response.access_token}`, undefined, {
         shallow: true,
       });
+      setLoading(() => false);
     } catch (err) {
       Swal.fire(
         "ERROR",
