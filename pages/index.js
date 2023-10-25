@@ -368,7 +368,7 @@ export default function Home({ feedbacks }) {
                       1 DAY
                     </span>
                     <span className="ml-2 text-main-color font-bold text-xl ">
-                      Wildlige Photpgraphy tour
+                      Wildlige Photography tour
                     </span>
                   </div>
 
