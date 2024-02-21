@@ -18,11 +18,6 @@ function Navbar() {
   const handleTriggerMenu = () => {
     document.body.style.overflow = "auto";
     setActivemenu(() => !activeMenu);
-    if (activeMenu !== true) {
-      document.body.style.overflow = "hidden";
-    } else if (activeMenu !== false) {
-      document.body.style.overflow = "auto";
-    }
   };
   return (
     <nav className="  w-full sticky z-[60] top-0 font-Poppins    ">
